@@ -6,11 +6,12 @@ function Sprite(params = {}) {
         vy: 0,
         ax: 0,
         ay: 0,
-        h: 10,
-        w: 10,
+        h: 32,
+        w: 32,
         a: 0,
         va: 0,
         vm: 0,
+        frame: 0,
         props: {},
         cooldown: 0,
         color: "red",
@@ -26,7 +27,7 @@ Sprite.prototype = new Sprite();
 Sprite.prototype.constructor = Sprite;
 
 Sprite.prototype.mover = function (dt) {
-    this.frame += 21*dt;
+    this.frame += 18*dt;
     this.moverOrtogonal(dt);
 }
 
@@ -35,58 +36,75 @@ Sprite.prototype.desenhar = function (ctx) {
     ctx.save();
     var F = Math.floor(this.frame);
 
+    ctx.translate(this.x, this.y);
+
+    //ctx.fillStyle = this.color;
+    //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+
     if(this.movimento.direita){
+        console.log("Teste")
         ctx.drawImage(
             this.assets.img("player"),
             (F%4)*47,
-            Math.floor(F/4)*61,
+            62,
             47,
             61,
-            -this.w/2,
+            -this.w / 2,
             -this.h/2,
             this.w,
-            this.h 
+            this.h
         );
     }
-    if(this.movimento.esquerda){
+    else if(this.movimento.esquerda){
         ctx.drawImage(
             this.assets.img("player"),
             (F%4)*47,
-            Math.floor(F/4)*61,
+            127,
             47,
             61,
-            -this.w/2,
+            -this.w / 2,
             -this.h/2,
             this.w,
-            this.h 
+            this.h
         );
     }     
-    if(this.movimento.cima){
+    else if(this.movimento.cima){
         ctx.drawImage(
             this.assets.img("player"),
-            (F%4)*47,
-            Math.floor(F/4)*61,
-            47,
-            61,
-            -this.w/2,
+            (F%4)*49,
+            197,
+            49,
+            62,
+            -this.w / 2,
             -this.h/2,
             this.w,
-            this.h 
+            this.h
         );
     }     
-    if(this.movimento.baixo){
+    else if(this.movimento.baixo){
         ctx.drawImage(
             this.assets.img("player"),
-            (F%4)*47,
-            Math.floor(F/4)*61,
-            47,
-            61,
-            -this.w/2,
+            (F%4)*50,
+            0,
+            50,
+            59,
+            -this.w / 2,
             -this.h/2,
             this.w,
-            this.h 
+            this.h
         );
-    }             
+    } else {
+        ctx.drawImage(
+            this.assets.img("player"),
+            47,
+            0,
+            50,
+            59,
+            -this.w / 2,
+            -this.h/2,
+            this.w,
+            this.h
+    )};      
     ctx.restore();
 
 };
@@ -142,8 +160,8 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
         dy = Math.max(dny, dy);
     }
     this.vy = dy / dt;
-    this.x = this.x + dx;
-    this.y = this.y + dy;
+    this.x = Math.floor(this.x + dx);
+    this.y = Math.floor(this.y + dy);
 
     var MAXX = this.scene.map.SIZE * this.scene.map.COLUMNS - this.w / 2;
     var MAXY = this.scene.map.SIZE * this.scene.map.LINES - this.h / 2;

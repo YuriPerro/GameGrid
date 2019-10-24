@@ -9,7 +9,7 @@
     <script src="Scene.js"></script>
     <script src="AssetsManager.js"></script>
     <script src="Map.js"></script>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="Style.css"/>
 </head>
 
 <body>
@@ -19,6 +19,7 @@
         var assetsMng = new AssetsManager();
         assetsMng.loadImage("player", "Assets/avatar.png");
         assetsMng.loadImage("explosion", "Assets/explosion.png");
+        assetsMng.loadImage("chao", "Assets/chao.png");
 
         var canvas = document.querySelector("canvas");
         canvas.width = 600;
@@ -32,27 +33,27 @@
             espaco: 0
         }
 
-        var mapa = new Map({COLUMNS:20, LINES:20, m:
+        var mapa = new Map({COLUMNS:20, LINES:21, assets: assetsMng, m:
         [
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         [1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,1],
         [1,0,0,1,1,1,0,0,0,0,0,1,0,1,0,0,1,0,0,1],
         [1,0,1,1,0,1,1,1,0,0,0,0,0,1,0,0,1,0,0,1],
         [1,0,1,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1],
         [1,0,1,1,0,0,1,1,0,1,0,0,0,0,1,1,0,0,1,1],
         [1,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,1,1],
         [1,0,0,0,1,1,1,0,0,1,0,0,0,0,0,1,0,0,0,1],
         [1,0,1,1,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0,1],
         [1,0,1,1,0,0,0,1,1,1,0,1,0,0,0,0,0,1,1,1],
         [1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
-        [1,0,1,1,0,0,1,1,0,1,0,1,0,1,0,1,1,1,0,1],
+        [1,0,1,1,0,0,1,1,0,0,0,1,0,1,0,1,1,1,0,1],
         [1,0,0,0,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1],
-        [1,0,0,0,1,1,1,0,0,1,0,1,0,1,1,1,0,0,0,1],
+        [1,0,0,0,1,1,1,0,0,0,0,1,0,1,1,1,0,0,0,1],
         [1,0,1,1,0,1,1,1,0,0,0,1,0,1,1,0,0,0,0,1],
-        [1,0,1,1,0,0,0,1,1,1,0,1,0,0,1,0,0,1,1,1],
-        [1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1],
-        [1,0,1,1,0,0,1,1,0,1,0,1,0,0,1,1,1,1,0,1],
+        [1,0,1,1,0,0,0,1,1,1,0,0,0,0,1,0,0,1,1,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1],
+        [1,0,1,1,0,0,1,1,0,1,0,0,0,0,0,0,1,1,0,1],
         [1,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,0,0,1],
         [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         ]
@@ -66,12 +67,12 @@
 
         function porTeclasDirecionais(teclas) {
             return function () {
-                if (teclas.esquerda) { this.vx = -120; }
-                if (teclas.direita) { this.vx = +120; }
+                if (teclas.esquerda) { this.vx = -125; }
+                if (teclas.direita) { this.vx = +125; }
                 if (teclas.esquerda === teclas.direita) { this.vx = 0; }
 
-                if (teclas.cima) { this.vy = -120; }
-                if (teclas.baixo) { this.vy = 120; }
+                if (teclas.cima) { this.vy = -125; }
+                if (teclas.baixo) { this.vy = 125; }
                 if (teclas.cima === teclas.baixo) { this.vy = 0; }
 
                 // TIRO
@@ -134,8 +135,8 @@
 
             ctx.save();
             pc.movimento = teclas;
-            ctx.scale(1.5, 1.5);
-            ctx.translate(canvas.width/(2*1.5)-pc.x, canvas.height/(2*1.5)-pc.y);
+            ctx.scale(1, 1);
+            ctx.translate(Math.floor(canvas.width/(2*1.5)-pc.x), Math.floor(canvas.height/(2*1.5)-pc.y));
             ctx.clearRect(0,0, canvas.width, canvas.height);
             dt = (t - anterior) / 1000;
             if(assetsMng.progresso() === 100){

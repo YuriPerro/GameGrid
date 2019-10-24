@@ -3,7 +3,8 @@ function Map(modelo) {
         cells: [],
         LINES: 32,
         COLUMNS: 32,
-        SIZE: 32
+        SIZE: 32,
+        assets: null
     }
     Object.assign(this, exemplo, modelo);
 
@@ -23,23 +24,34 @@ function Map(modelo) {
 }
 
 Map.prototype.desenhar = function (ctx) {
-    var cor = "black";
     for (var c = 0; c < this.COLUMNS; c++) {
         for (var l = 0; l < this.LINES; l++) {
-            switch (this.cells[c][l].tipo) {
-                case 0:
-                    cor = "lightgreen";
-                    break;
-                case 1:
-                    cor = "white";
-                    break;
-                default:
-                    cor = "black";
-            }
-            ctx.fillStyle = cor;
-            ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
+            
+            ctx.drawImage(
+                this.assets.img("chao"),
+                32, // Corte na vertical
+                96, //Corte na horizontal
+                32,
+                32,
+                c*this.SIZE,
+                l*this.SIZE,
+                32,
+                32,
+            );
+            if(this.cells[c][l].tipo == 1){
+                ctx.drawImage(
+                    this.assets.img("chao"),
+                    128, // Corte na vertical
+                    64, //Corte na horizontal
+                    32,
+                    32,
+                    c*this.SIZE,
+                    l*this.SIZE,
+                    32,
+                    32,
+                );
+            } 
+
         }
     }
-   // ctx.strokeStyle = "black";
-   // ctx.strokeRect(this.SIZE, this.SIZE, 15*27.8, 15*27.8 );
 }
