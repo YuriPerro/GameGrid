@@ -15,9 +15,10 @@ function Sprite(params = {}) {
         cooldown: 0,
         color: "red",
         imune: 0,
-        atirando: 0,
-        comportar: undefined,
-        scene: undefined
+        movimento: null,
+        scene: undefined,
+        mapa: undefined,
+        assets: null,
     }
     Object.assign(this, exemplo, params);
 }
@@ -29,22 +30,63 @@ Sprite.prototype.mover = function (dt) {
     this.moverOrtogonal(dt);
 }
 
-Sprite.prototype.desenhar = function (ctx, assetsMng) {
+Sprite.prototype.desenhar = function (ctx) {
 
     ctx.save();
-    ctx.translate(this.x, this.y);
     var F = Math.floor(this.frame);
-    ctx.drawImage(
-        assetsMng.img("explosion"),
-        (F%4)*128,
-        Math.floor(F/4)*128,
-        128,
-        128,
-        -this.w/2,
-        -this.h/2,
-        this.w,
-        this.h 
-    );
+
+    if(this.movimento.direita){
+        ctx.drawImage(
+            this.assets.img("player"),
+            (F%4)*47,
+            Math.floor(F/4)*61,
+            47,
+            61,
+            -this.w/2,
+            -this.h/2,
+            this.w,
+            this.h 
+        );
+    }
+    if(this.movimento.esquerda){
+        ctx.drawImage(
+            this.assets.img("player"),
+            (F%4)*47,
+            Math.floor(F/4)*61,
+            47,
+            61,
+            -this.w/2,
+            -this.h/2,
+            this.w,
+            this.h 
+        );
+    }     
+    if(this.movimento.cima){
+        ctx.drawImage(
+            this.assets.img("player"),
+            (F%4)*47,
+            Math.floor(F/4)*61,
+            47,
+            61,
+            -this.w/2,
+            -this.h/2,
+            this.w,
+            this.h 
+        );
+    }     
+    if(this.movimento.baixo){
+        ctx.drawImage(
+            this.assets.img("player"),
+            (F%4)*47,
+            Math.floor(F/4)*61,
+            47,
+            61,
+            -this.w/2,
+            -this.h/2,
+            this.w,
+            this.h 
+        );
+    }             
     ctx.restore();
 
 };
@@ -115,7 +157,6 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
     if (this.y - this.h / 2 < 0) this.y = 0 + this.h / 2;
 
 }
-
 
 Sprite.prototype.colidiuCom = function (alvo) {
     if (alvo.x + alvo.w / 2 < this.x - this.w / 2) return false;

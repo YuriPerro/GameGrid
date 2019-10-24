@@ -6,7 +6,7 @@ function Map(modelo) {
         SIZE: 32
     }
     Object.assign(this, exemplo, modelo);
-    
+
     for (var c = 0; c < this.COLUMNS; c++) {
         this.cells[c] = [];
         for (var l = 0; l < this.LINES; l++) {
@@ -40,6 +40,6 @@ Map.prototype.desenhar = function (ctx) {
             ctx.fillRect(c * this.SIZE, l * this.SIZE, this.SIZE, this.SIZE);
         }
     }
-    ctx.strokeStyle = "black";
-    ctx.strokeRect(this.SIZE, this.SIZE, 15*27.8, 15*27.8 );
+   // ctx.strokeStyle = "black";
+   // ctx.strokeRect(this.SIZE, this.SIZE, 15*27.8, 15*27.8 );
 }

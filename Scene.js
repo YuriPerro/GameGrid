@@ -19,7 +19,8 @@ Scene.prototype.adicionar = function(sprite){
     sprite.scene = this;
 };
 
-Scene.prototype.desenhar = function(assetsMng){
+Scene.prototype.desenhar = function(canvas){
+    //ctx = canvas;
     for(var i = 0; i<this.sprites.length; i++){
         this.sprites[i].desenhar(this.ctx);
     }  
@@ -84,12 +85,12 @@ Scene.prototype.desenharMapa = function () {
     this.map.desenhar(this.ctx);
 }
 
-Scene.prototype.passo = function(dt, canvas, assetsMng){
+Scene.prototype.passo = function(dt, ctx){
     this.limpar();
     this.desenharMapa(canvas);
     this.comportar();
     this.mover(dt);
-    this.desenhar(assetsMng);
+    this.desenhar(ctx);
     //this.checaColisao();
     this.removeSprites();
 }

@@ -17,8 +17,7 @@
     <canvas></canvas>
     <script>
         var assetsMng = new AssetsManager();
-        assetsMng.loadImage("player", "Assets/player_ship.png");
-        assetsMng.loadImage("enemy_1", "Assets/enemy_1.png");
+        assetsMng.loadImage("player", "Assets/avatar.png");
         assetsMng.loadImage("explosion", "Assets/explosion.png");
 
         var canvas = document.querySelector("canvas");
@@ -33,29 +32,35 @@
             espaco: 0
         }
 
-        var mapa = new Map({COLUMNS:15, LINES:15, m:
+        var mapa = new Map({COLUMNS:20, LINES:20, m:
         [
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,1,1,1,0,0,0,0,0,1,0,0,1],
-        [1,0,1,1,0,1,1,1,0,0,0,1,0,0,1],
-        [1,0,1,1,0,0,0,1,1,1,1,1,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1],
-        [1,0,1,1,0,0,1,1,0,1,1,0,0,1,1],
-        [1,0,0,0,0,1,1,0,0,0,1,0,0,1,1],
-        [1,0,0,0,1,1,1,0,0,1,1,0,0,0,1],
-        [1,0,1,1,0,1,1,1,0,0,0,0,0,0,1],
-        [1,0,1,1,0,0,0,1,1,1,0,0,1,1,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,1,1,0,0,1,1,0,1,1,1,1,0,1],
-        [1,0,0,0,0,1,1,0,0,0,1,0,0,0,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+        [1,0,0,0,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,1],
+        [1,0,0,1,1,1,0,0,0,0,0,1,0,1,0,0,1,0,0,1],
+        [1,0,1,1,0,1,1,1,0,0,0,0,0,1,0,0,1,0,0,1],
+        [1,0,1,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1],
+        [1,0,1,1,0,0,1,1,0,1,0,0,0,0,1,1,0,0,1,1],
+        [1,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,1,1],
+        [1,0,0,0,1,1,1,0,0,1,0,0,0,0,0,1,0,0,0,1],
+        [1,0,1,1,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0,1],
+        [1,0,1,1,0,0,0,1,1,1,0,1,0,0,0,0,0,1,1,1],
+        [1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1],
+        [1,0,1,1,0,0,1,1,0,1,0,1,0,1,0,1,1,1,0,1],
+        [1,0,0,0,0,1,1,0,0,0,0,1,0,1,0,1,0,0,0,1],
+        [1,0,0,0,1,1,1,0,0,1,0,1,0,1,1,1,0,0,0,1],
+        [1,0,1,1,0,1,1,1,0,0,0,1,0,1,1,0,0,0,0,1],
+        [1,0,1,1,0,0,0,1,1,1,0,1,0,0,1,0,0,1,1,1],
+        [1,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,1],
+        [1,0,1,1,0,0,1,1,0,1,0,1,0,0,1,1,1,1,0,1],
+        [1,0,0,0,0,1,1,0,0,0,0,1,0,1,1,1,0,0,0,1],
+        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
         ]
         });
 
         var cena1 = new Scene({ ctx: ctx, w: canvas.width, h: canvas.height, assets: assetsMng, map:mapa });
 
-        var pc = new Sprite({ x: 45, y: 45, w: 20, h: 20, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
+        var pc = new Sprite({ x: 45, y: 45, w: 20, h: 20, assets: assetsMng, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
         
         cena1.adicionar(pc);
 
@@ -128,12 +133,13 @@
             ctx.clearRect(0,0, canvas.width, canvas.height);
 
             ctx.save();
+            pc.movimento = teclas;
             ctx.scale(1.5, 1.5);
             ctx.translate(canvas.width/(2*1.5)-pc.x, canvas.height/(2*1.5)-pc.y);
             ctx.clearRect(0,0, canvas.width, canvas.height);
             dt = (t - anterior) / 1000;
             if(assetsMng.progresso() === 100){
-                cena1.passo(dt, assetsMng);
+                cena1.passo(dt, ctx);
             }
             anterior = t;
             ctx.fillText(1 / dt, 10, 20);
