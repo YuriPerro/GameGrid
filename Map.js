@@ -91,6 +91,19 @@ Map.prototype.desenhar = function (ctx) {
                     32,
                 );
             }
+            if(this.cells[c][l].tipo == 5){
+                ctx.drawImage(
+                    this.assets.img("chao2"),
+                    329, // Corte na vertical
+                    33, //Corte na horizontal
+                    32,
+                    32,
+                    c*this.SIZE,
+                    l*this.SIZE,
+                    32,
+                    32,
+                );
+            }
         }
     }
      

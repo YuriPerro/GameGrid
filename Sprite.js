@@ -34,7 +34,9 @@ Sprite.prototype.desenhar = function (ctx) {
 
         //ctx.fillStyle = this.color;
         //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
- 
+        
+    ctx.drawImage(this.assets.img("tela"), -300, -300, 600, 600);
+
     if(this.movimento.direita){
         ctx.drawImage(
             this.assets.img("player"),
@@ -152,6 +154,7 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
         dny = this.scene.map.SIZE * (this.ml - 1 + 1) - (this.y - this.h / 2);
         dy = Math.max(dny, dy);
     }
+
     this.vy = dy / dt;
     this.x = (this.x + dx);
     this.y = (this.y + dy);

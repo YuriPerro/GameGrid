@@ -45,7 +45,7 @@ Enemy.prototype.desenhar = function (ctx) {
             this.assets.img("enemy2"),
             this.x,
             this.y,
-            32,
+            35,
             32
         );
     }
@@ -54,7 +54,7 @@ Enemy.prototype.desenhar = function (ctx) {
             this.assets.img("enemy1"),
             this.x,
             this.y,
-            32,
+            35,
             32
         );
     }  
