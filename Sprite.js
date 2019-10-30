@@ -1,24 +1,19 @@
 function Sprite(params = {}) {
     var exemplo = {
-        x: 0,
-        y: 0,
-        vx: 0,
-        vy: 0,
-        ax: 0,
-        ay: 0,
-        h: 32,
-        w: 32,
+        x: 0,    y: 0,
+        vx: 0,  vy: 0,
+        ax: 0,  ay: 0,
+        w: 32,  h: 32,   
         a: 0,
-        va: 0,
-        vm: 0,
+        va: 0,    vm: 0,
         frame: 0,
         props: {},
         cooldown: 0,
         color: "red",
         imune: 0,
         movimento: null,
-        scene: undefined,
-        mapa: undefined,
+        scene: null,
+        mapa: null,
         assets: null,
     }
     Object.assign(this, exemplo, params);
@@ -27,7 +22,7 @@ Sprite.prototype = new Sprite();
 Sprite.prototype.constructor = Sprite;
 
 Sprite.prototype.mover = function (dt) {
-    this.frame += 18*dt;
+    this.frame += 12*dt;
     this.moverOrtogonal(dt);
 }
 
@@ -35,20 +30,18 @@ Sprite.prototype.desenhar = function (ctx) {
 
     ctx.save();
     var F = Math.floor(this.frame);
-
     ctx.translate(this.x, this.y);
 
-    //ctx.fillStyle = this.color;
-    //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
-
+        //ctx.fillStyle = this.color;
+        //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+ 
     if(this.movimento.direita){
-        console.log("Teste")
         ctx.drawImage(
             this.assets.img("player"),
             (F%4)*47,
-            62,
+            63,
             47,
-            61,
+            66,
             -this.w / 2,
             -this.h/2,
             this.w,
@@ -59,9 +52,9 @@ Sprite.prototype.desenhar = function (ctx) {
         ctx.drawImage(
             this.assets.img("player"),
             (F%4)*47,
-            127,
+            129,
             47,
-            61,
+            67,
             -this.w / 2,
             -this.h/2,
             this.w,
@@ -106,7 +99,6 @@ Sprite.prototype.desenhar = function (ctx) {
             this.h
     )};      
     ctx.restore();
-
 };
 
 
@@ -137,31 +129,32 @@ Sprite.prototype.moverOrtogonal = function (dt) {
 }
 Sprite.prototype.aplicaRestricoes = function (dt) {
 
-    var dnx;
-    var dx;
+    var dnx, dny;
+    var dx, dy;
     dx = this.vx * dt;
     dnx = dx;
     dy = this.vy * dt;
     dny = dy;
-    if (dx > 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 0) {
+    
+    if (dx > 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 5) {
         dnx = this.scene.map.SIZE * (this.mc + 1) - (this.x + this.w / 2);
         dx = Math.min(dnx, dx);
     }
-    if (dx < 0 && this.scene.map.cells[this.mc - 1][this.ml].tipo != 0) {
+    if (dx < 0 && this.scene.map.cells[this.mc - 1][this.ml].tipo != 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 5) {
         dnx = this.scene.map.SIZE * (this.mc - 1 + 1) - (this.x - this.w / 2);
         dx = Math.max(dnx, dx);
     }
-    if (dy > 0 && this.scene.map.cells[this.mc][this.ml + 1].tipo != 0) {
+    if (dy > 0 && this.scene.map.cells[this.mc][this.ml + 1].tipo != 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 5) {
         dny = this.scene.map.SIZE * (this.ml + 1) - (this.y + this.h / 2);
         dy = Math.min(dny, dy);
     }
-    if (dy < 0 && this.scene.map.cells[this.mc][this.ml - 1].tipo != 0) {
+    if (dy < 0 && this.scene.map.cells[this.mc][this.ml - 1].tipo != 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 5) {
         dny = this.scene.map.SIZE * (this.ml - 1 + 1) - (this.y - this.h / 2);
         dy = Math.max(dny, dy);
     }
     this.vy = dy / dt;
-    this.x = Math.floor(this.x + dx);
-    this.y = Math.floor(this.y + dy);
+    this.x = (this.x + dx);
+    this.y = (this.y + dy);
 
     var MAXX = this.scene.map.SIZE * this.scene.map.COLUMNS - this.w / 2;
     var MAXY = this.scene.map.SIZE * this.scene.map.LINES - this.h / 2;

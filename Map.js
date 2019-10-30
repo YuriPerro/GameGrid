@@ -24,13 +24,14 @@ function Map(modelo) {
 }
 
 Map.prototype.desenhar = function (ctx) {
+    
     for (var c = 0; c < this.COLUMNS; c++) {
         for (var l = 0; l < this.LINES; l++) {
             
             ctx.drawImage(
                 this.assets.img("chao"),
-                32, // Corte na vertical
-                96, //Corte na horizontal
+                160, // Corte na vertical
+                32, //Corte na horizontal
                 32,
                 32,
                 c*this.SIZE,
@@ -40,9 +41,9 @@ Map.prototype.desenhar = function (ctx) {
             );
             if(this.cells[c][l].tipo == 1){
                 ctx.drawImage(
-                    this.assets.img("chao"),
-                    128, // Corte na vertical
-                    64, //Corte na horizontal
+                    this.assets.img("ob"),
+                    0, // Corte na vertical
+                    0, //Corte na horizontal
                     32,
                     32,
                     c*this.SIZE,
@@ -51,7 +52,46 @@ Map.prototype.desenhar = function (ctx) {
                     32,
                 );
             } 
-
+            if(this.cells[c][l].tipo == 2){
+                ctx.drawImage(
+                    this.assets.img("chao"),
+                    192, // Corte na vertical
+                    32, //Corte na horizontal
+                    32,
+                    32,
+                    c*this.SIZE,
+                    l*this.SIZE,
+                    32,
+                    32,
+                );
+            }
+            if(this.cells[c][l].tipo == 3){
+                ctx.drawImage(
+                    this.assets.img("chao2"),
+                    297, // Corte na vertical
+                    231, //Corte na horizontal
+                    32,
+                    32,
+                    c*this.SIZE,
+                    l*this.SIZE,
+                    32,
+                    32,
+                );
+            }
+            if(this.cells[c][l].tipo == 4){
+                ctx.drawImage(
+                    this.assets.img("chao"),
+                    128, // Corte na vertical
+                    32, //Corte na horizontal
+                    32,
+                    32,
+                    c*this.SIZE,
+                    l*this.SIZE,
+                    32,
+                    32,
+                );
+            }
         }
     }
+     
 }
