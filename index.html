@@ -51,7 +51,7 @@
             perdeu: 3, 
             start: 4,
             tut: 5,
-
+            ganhou: 6,
         }
 
         var teclas = {
@@ -92,7 +92,8 @@
 
         var pc = new Sprite({ x: 45, y: 250, w: 20, h: 20, assets: assetsMng, scene: cena1, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
         var npc = new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "npc" }});
-
+        var portal = new Portal ({assets: assetsMng});
+        
         cena1.adicionar(pc);
         cena1.adicionar(npc);
             cena1.adicionar(new Coin({x: 32*14, 
@@ -109,6 +110,7 @@
                                      y: 32*15, assets: assetsMng, scene: cena1, map: mapa }));
             cena1.adicionar(new Coin({x: 32*28, 
                                      y: 32*11, assets: assetsMng, scene: cena1, map: mapa }));
+        cena1.adicionar(portal);
 
         //cena1.adicionar(new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "pc" }}));
         
@@ -161,7 +163,7 @@
                     }
                     else if( estadoAtual == estados.start){
                         estadoAtual = estados.jogando
-                    }
+                    }  
                     break;
             }
         });
@@ -195,10 +197,18 @@
                 pc.score = 0;
                 estadoAtual = estados.start;
             } 
-            if( estadoAtual == estados.jogar){
+            else if( estadoAtual == estados.jogar){
                 estadoAtual = estados.tut;
-            }
-            
+            } else if( estadoAtual == estados.ganhou){
+                    npc.x =  100+300*Math.random(); 
+                    npc.y = 100+300*Math.random();
+                    pc.x = 45;
+                    pc.y = 250;
+                    pc.vidas = 5;
+                    pc.score = 0;
+                    portal.x = 2000;
+                    estadoAtual = estados.jogar;
+            }             
         });
 
         function passo(t) {
@@ -242,18 +252,18 @@
         if( estadoAtual == estados.tut){
             ctx.drawImage(assetsMng.img("tut"), 0, 0, 860, 550);
         }
-        if( pc.score == 1){
-            var portal = new Portal ({assets: assetsMng});
-            cena1.adicionar(portal);
-            pc.colidiuCom(portal);
-        }
-    }
+        if( pc.score == 1 && estadoAtual == estados.jogando){
+            portal.x = 14*32; 
 
+            if(pc.colidiuCom( portal ) && estadoAtual == estados.jogando){
+                ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
+                }   
+            }
+    }
+    
         var dt, anterior = 0;
         estadoAtual = estados.jogar;
         requestAnimationFrame(passo);
-
-
     </script>
 </body>
 
