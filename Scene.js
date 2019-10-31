@@ -37,7 +37,8 @@ Scene.prototype.comportar = function(){
         if(this.sprites[i].comportar){
             this.sprites[i].comportar();
         }
-    }  
+    } 
+    this.checaColisao(); 
 };
 
 
@@ -46,29 +47,22 @@ Scene.prototype.limpar = function(){
 }
 
 Scene.prototype.checaColisao = function(){
-    for(var i = 0; i<this.sprites.length; i++){
+    for(var i = 0; i < this.sprites.length; i++){
         if(this.sprites[i].morto){
             this.toRemove.push(this.sprites[i]);
         }
-        for(var j = i+1; j<this.sprites.length; j++){
-            if(this.sprites[i].colidiuCom(this.sprites[j])){
-                if(this.sprites[i].props.tipo === "pc"
-                && this.sprites[j].props.tipo ==="npc"){
-                    this.toRemove.push(this.sprites[j]);
-                    this.adicionar(new Explosion({x: this.sprites[j].x, y:this.sprites[j].y}));
-                    this.assets.play("explosion");
-                }
-                else 
-                if(this.sprites[i].props.tipo === "npc"
-                && this.sprites[j].props.tipo ==="tiro"){
-                    this.toRemove.push(this.sprites[i]);
-                    this.toRemove.push(this.sprites[j]);
-                    this.adicionar(new Explosion({x: this.sprites[i].x, y:this.sprites[i].y}));
-                    this.assets.play("explosion");
-                }
-            }
+    if( this.sprites[0].colidiuCom(this.sprites[1]) && this.sprites[0].cooldown <= 0) {
+            this.sprites[0].vidas = this.sprites[0].vidas - 1;
+            this.sprites[0].cooldown = 1;
         }
-    }  
+    }
+    for( var i=2; i<this.sprites.length; i++){
+        if( this.sprites[0].colidiuCom(this.sprites[i]) ){
+            this.sprites[0].score = this.sprites[0].score + 1;  
+            this.sprites[0].cooldown = 1;
+            this.toRemove.push(this.sprites[i]);
+        }
+    }
 };
 
 Scene.prototype.removeSprites = function () {
@@ -81,13 +75,13 @@ Scene.prototype.removeSprites = function () {
     this.toRemove = [];
 };
 
-Scene.prototype.desenharMapa = function () {
+Scene.prototype.desenharMapa = function (ctx) {
     this.map.desenhar(this.ctx);
 }
 
 Scene.prototype.passo = function(dt, ctx){
     this.limpar();
-    this.desenharMapa(canvas);
+    this.desenharMapa(ctx);
     this.comportar();
     this.mover(dt);
     this.desenhar(ctx);

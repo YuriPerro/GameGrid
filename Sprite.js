@@ -15,6 +15,8 @@ function Sprite(params = {}) {
         scene: null,
         mapa: null,
         assets: null,
+        vidas: 5,
+        score: 0,
     }
     Object.assign(this, exemplo, params);
 }
@@ -31,11 +33,14 @@ Sprite.prototype.desenhar = function (ctx) {
     ctx.save();
     var F = Math.floor(this.frame);
     ctx.translate(this.x, this.y);
-
-        //ctx.fillStyle = this.color;
-        //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
-        
-    ctx.drawImage(this.assets.img("tela"), -300, -300, 600, 600);
+    //ctx.fillStyle = this.color;
+    //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+    
+    ctx.drawImage(this.assets.img("tela"), -400, -265, 800, 530);
+    for( var i=0; i<this.vidas; i++){
+        ctx.drawImage(this.assets.img("vida"), -this.w/2-50+(i*20), -this.h/2+170, 20, 15);
+    }
+    
 
     if(this.movimento.direita){
         ctx.drawImage(
@@ -100,6 +105,7 @@ Sprite.prototype.desenhar = function (ctx) {
             this.w,
             this.h
     )};      
+    
     ctx.restore();
 };
 
@@ -173,11 +179,10 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
 }
 
 Sprite.prototype.colidiuCom = function (alvo) {
-    if (alvo.x + alvo.w / 2 < this.x - this.w / 2) return false;
-    if (alvo.x - alvo.w / 2 > this.x + this.w / 2) return false;
-
-    if (alvo.y + alvo.h / 2 < this.y - this.h / 2) return false;
-    if (alvo.y - alvo.h / 2 > this.y + this.h / 2) return false;
+    if ((alvo.x + alvo.w/2 )-5  < this.x - this.w / 2) return false;
+    if ((alvo.x - alvo.w/2 )-5  > this.x + this.w / 2) return false;
+    if ((alvo.y + alvo.h/2 )-5  < this.y - this.h / 2) return false;
+    if ((alvo.y - alvo.h/2 )-5  > this.y + this.h / 2) return false;
 
     return true;
 }

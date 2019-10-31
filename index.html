@@ -4,18 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Game </title>
+    <title>• Ghost Runner •</title>
     <script src="Sprite.js"></script>
     <script src="Explosion.js"></script>
     <script src="Scene.js"></script>
     <script src="Enemy.js"></script>
     <script src="AssetsManager.js"></script>
     <script src="Map.js"></script>
+    <script src="Coin.js"></script>
+    <script src="Portal.js"></script>
     <link rel="stylesheet" href="Style.css"/>
 </head>
 
 <body>
-    <h1> GAME  </h1>
+    <!-- <img src="./Assets/borda.png" width=930 height=615 style="margin-left: 14.5%; margin-top: -1%;"> -->
     <canvas></canvas>
     <script>
         var assetsMng = new AssetsManager();
@@ -27,18 +29,29 @@
         assetsMng.loadImage("chao2", "Assets/chao2.png");
         assetsMng.loadImage("tela", "Assets/tela.png");
         assetsMng.loadImage("ob", "Assets/obisidian.png");
+        assetsMng.loadImage("vida", "Assets/vida.png");
+        assetsMng.loadImage("borda", "Assets/borda.png");
+        assetsMng.loadImage("Perdeu", "Assets/perdeu.png");
+        assetsMng.loadImage("Play", "Assets/Play.png");
+        assetsMng.loadImage("Start", "Assets/Start.png");
+        assetsMng.loadImage("coin", "Assets/coin.png");
+        assetsMng.loadImage("tut", "Assets/Tutorial.png");
+        assetsMng.loadImage("Venceu", "Assets/Venceu.png");
 
         var canvas = document.querySelector("canvas");
-        canvas.width = 600;
-        canvas.height = 600;
+        canvas.width = 850;
+        canvas.height = 550;
         var ctx = canvas.getContext("2d");
-        canvas.style.border="black 5px solid";
+        //canvas.style.border="black 5px solid";
         
         var estadoAtual;
         var estados = {
             jogar: 1,
             jogando: 2,
-            perdeu: 3 
+            perdeu: 3, 
+            start: 4,
+            tut: 5,
+
         }
 
         var teclas = {
@@ -53,22 +66,22 @@
         [
         [2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
         [2,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,1,0,0,1,1,2],
-        [2,0,0,1,1,1,0,0,0,0,0,0,3,3,3,1,1,0,1,0,0,0,0,0,1,0,0,0,1,2],
+        [2,0,0,1,1,1,0,0,0,0,0,0,3,3,3,1,1,0,1,0,0,0,0,0,1,0,0,4,1,2],
         [2,0,1,1,0,1,1,1,0,0,0,0,3,3,0,0,1,0,1,1,0,1,0,0,1,0,0,0,0,2],
         [2,0,1,1,0,0,0,1,1,1,0,0,3,3,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,2],
-        [2,0,0,0,0,0,0,0,0,0,0,0,5,5,0,0,0,0,0,1,0,0,1,1,0,0,0,0,1,2],
+        [2,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,1,0,0,1,1,0,0,0,0,1,2],
         [2,0,1,1,0,0,1,1,0,0,0,3,3,3,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,2],
         [2,0,0,0,0,0,1,0,0,0,3,3,3,3,1,1,0,0,0,0,1,0,0,0,0,1,1,1,1,2],
-        [2,0,0,0,0,0,1,0,0,0,3,3,0,0,0,1,0,0,0,0,1,1,0,0,0,1,0,0,0,2],
+        [2,0,0,0,0,0,1,0,0,0,3,3,0,0,0,1,0,0,0,0,1,1,4,0,0,1,0,0,0,2],
         [2,0,1,1,0,1,1,4,0,0,3,3,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0,2],
         [2,0,0,0,0,0,1,1,1,1,3,3,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2],
         [2,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,2],
         [2,0,0,0,0,0,1,1,0,0,3,3,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,2],
         [2,0,0,0,0,1,1,0,0,0,3,3,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,2],
-        [2,0,0,0,0,0,1,0,0,0,3,3,0,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,2],
-        [2,0,1,1,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,2],
+        [2,0,0,0,0,0,1,0,0,0,5,5,0,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,2],
+        [2,0,1,1,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,2],
         [2,0,1,4,0,0,0,1,1,0,3,3,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,1,2],
-        [2,0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,2],
+        [2,0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,1,0,0,0,4,1,0,0,0,2],
         [2,0,1,1,0,0,1,1,0,0,0,0,0,3,0,0,0,1,1,1,1,0,0,1,1,1,0,0,0,2],
         [2,0,0,0,0,1,1,0,0,0,0,1,0,3,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
         [2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
@@ -78,17 +91,32 @@
         var cena1 = new Scene({ ctx: ctx, w: canvas.width, h: canvas.height, assets: assetsMng, map: mapa });
 
         var pc = new Sprite({ x: 45, y: 250, w: 20, h: 20, assets: assetsMng, scene: cena1, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
+        var npc = new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "npc" }});
 
         cena1.adicionar(pc);
-        cena1.adicionar(new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "pc" }}));
-        cena1.adicionar(new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "pc" }}));
-        //cena1.adicionar(new Enemy({ x: 200, y:200, w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "pc" }}));
+        cena1.adicionar(npc);
+            cena1.adicionar(new Coin({x: 32*14, 
+                                     y: 32*13, assets: assetsMng, scene: cena1, map: mapa }));
+            cena1.adicionar(new Coin({x: 32*8, 
+                                     y: 32*9, assets: assetsMng, scene: cena1, map: mapa }));  
+            cena1.adicionar(new Coin({x: 32*12, 
+                                     y: 32*19, assets: assetsMng, scene: cena1, map: mapa }));    
+            cena1.adicionar(new Coin({x: 32*28, 
+                                     y: 32*3, assets: assetsMng, scene: cena1, map: mapa }));
+            cena1.adicionar(new Coin({x: 32*15, 
+                                     y: 32*1, assets: assetsMng, scene: cena1, map: mapa }));
+            cena1.adicionar(new Coin({x: 32*23, 
+                                     y: 32*15, assets: assetsMng, scene: cena1, map: mapa }));
+            cena1.adicionar(new Coin({x: 32*28, 
+                                     y: 32*11, assets: assetsMng, scene: cena1, map: mapa }));
 
+        //cena1.adicionar(new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "pc" }}));
+        
         
         function persegue(alvo){
             return function(){
-                this.vx = 25 * Math.sign(alvo.x - this.x);
-                this.vy = 25 * Math.sign(alvo.y - this.y);
+                this.vx =  40 * Math.sign(alvo.x - this.x);
+                this.vy =  40 * Math.sign(alvo.y - this.y);
             }
         }
 
@@ -103,23 +131,11 @@
                 if (teclas.cima === teclas.baixo) { this.vy = 0; }
 
                 if (teclas.espaco && this.cooldown <= 0){
-                    var explosion = new Explosion({x: this.x, y:this.y});
-                    this.scene.adicionar(explosion);
-                    this.cooldown = 1/1;
+                    //var explosion = new Explosion({x: this.x+3, y:this.y+3});
+                    //this.scene.adicionar(explosion);
+                    //this.cooldown = 1;
                 }
-                // TIRO
-                /* 
-                if (teclas.espaco && this.cooldown <= 0) {
-                    var tiro = new Npc({
-                        x: this.x, y: this.y,
-                        a: this.a - 0.1 + 0.2 * Math.random(),
-                        vm: 240, color: "black", w: 4, h: 4,
-                        props: { tipo: "tiro" }
-                    });
-                    this.scene.adicionar(tiro);
-                    this.cooldown = 0.1;
-                }
-                */
+                
             }
         }
         addEventListener("keydown", function (e) {
@@ -138,6 +154,14 @@
                     break;
                 case 40:
                     teclas.baixo = 1;
+                    break;
+                case 13:
+                    if( estadoAtual == estados.tut){
+                        estadoAtual = estados.start;
+                    }
+                    else if( estadoAtual == estados.start){
+                        estadoAtual = estados.jogando
+                    }
                     break;
             }
         });
@@ -161,39 +185,67 @@
             }
         });
 
-        addEventListener("mousedown", function clique(e){
+        addEventListener("mousedown", function (e){
+            if( estadoAtual == estados.perdeu){
+                npc.x =  100+300*Math.random(); 
+                npc.y = 100+300*Math.random();
+                pc.x = 45;
+                pc.y = 250;
+                pc.vidas = 5;
+                pc.score = 0;
+                estadoAtual = estados.start;
+            } 
             if( estadoAtual == estados.jogar){
-                estadoAtual = estados.jogando;
+                estadoAtual = estados.tut;
             }
+            
         });
 
         function passo(t) {
             ctx.clearRect(0,0, canvas.width, canvas.height);
-
-            
                 ctx.save();
                 pc.movimento = teclas;
                 ctx.scale(1.5, 1.5);
                 ctx.translate(canvas.width/(2*1.5)-pc.x, (canvas.height/(2*1.5)-pc.y));
                 ctx.clearRect(0,0, canvas.width, canvas.height);
                 dt = (t - anterior) / 1000;
-            
+                
             if(assetsMng.progresso() === 100 && estadoAtual == estados.jogando){
                 cena1.passo(dt, ctx);
+            }
+            if( pc.vidas == -100){                
+                estadoAtual = estados.perdeu;
             }
                 
                 anterior = t;
                 //ctx.fillText(1 / dt, 10, 20);
                 requestAnimationFrame(passo);
                 ctx.restore();
-         
+        if(estadoAtual == estados.jogando){
+                ctx.fillStyle = "WHITE";
+                ctx.font = "35px bold optima";
+                ctx.fillText(pc.score, 431, 44);
+                ctx.fillStyle = "WHITE";
+                ctx.font = "30px bold optima";
+                ctx.fillText("SCORE:", 320, 41);
+        } 
+            
         if ( estadoAtual == estados.jogar){
-            ctx.font = "38px bold times"; 
-            ctx.fillStyle = "green";
-            ctx.fillRect(240, 270, 120, 60);
-            ctx.fillStyle = "white";
-            ctx.fillText("PLAY", 253, 312);
-
+            ctx.drawImage(assetsMng.img("Play"), 0, 0, 860, 550);
+        } 
+        if( estadoAtual == estados.perdeu){
+            ctx.drawImage(assetsMng.img("Perdeu"), 0, 0, 860, 550);
+        }
+        if( estadoAtual == estados.start){
+            ctx.drawImage(assetsMng.img("Start"), 0, 0, 860, 550);
+        }
+        if( estadoAtual == estados.tut){
+            ctx.drawImage(assetsMng.img("tut"), 0, 0, 860, 550);
+        }
+        if( pc.score == 1){
+            var portal = new Portal ({assets: assetsMng});
+            cena1.adicionar(portal);
+            pc.colidiuCom(portal);
         }
     }
 

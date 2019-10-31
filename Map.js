@@ -4,7 +4,8 @@ function Map(modelo) {
         LINES: 32,
         COLUMNS: 32,
         SIZE: 32,
-        assets: null
+        assets: null,
+        moeda: null,
     }
     Object.assign(this, exemplo, modelo);
 
@@ -24,7 +25,7 @@ function Map(modelo) {
 }
 
 Map.prototype.desenhar = function (ctx) {
-    
+
     for (var c = 0; c < this.COLUMNS; c++) {
         for (var l = 0; l < this.LINES; l++) {
             

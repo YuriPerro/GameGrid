@@ -14,7 +14,7 @@ function Explosion(params ={}) {
 }
 
 Explosion.prototype.mover = function(dt){
-    this.frame += 26 * dt;
+    this.frame += 15 * dt;
     if(Math.floor(this.frame) > 16){
         //this.frame = 0;
         this.morto = true;
@@ -41,6 +41,3 @@ Explosion.prototype.desenhar = function(){
     ctx.restore();
 }
 
-Explosion.prototype.colidiuCom = function(){
-    return false;
-}
