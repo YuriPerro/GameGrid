@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <!-- <img src="./Assets/borda.png" width=930 height=615 style="margin-left: 14.5%; margin-top: -1%;"> -->
+     <img src="./Assets/BG.jpg" width=1300 height=602>
     <canvas></canvas>
     <script>
         var assetsMng = new AssetsManager();
@@ -37,6 +37,7 @@
         assetsMng.loadImage("coin", "Assets/coin.png");
         assetsMng.loadImage("tut", "Assets/Tutorial.png");
         assetsMng.loadImage("Venceu", "Assets/Venceu.png");
+        assetsMng.loadImage("map", "Assets/map.jpg");
 
         var canvas = document.querySelector("canvas");
         canvas.width = 850;
@@ -65,8 +66,8 @@
         var mapa = new Map({COLUMNS:30, LINES:21, assets: assetsMng, m:
         [
         [2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
-        [2,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,1,0,0,1,1,2],
-        [2,0,0,1,1,1,0,0,0,0,0,0,3,3,3,1,1,0,1,0,0,0,0,0,1,0,0,4,1,2],
+        [2,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,1,0,0,0,0,0,1,0,0,1,1,2],
+        [2,0,0,1,1,1,0,0,0,0,0,0,3,3,3,0,1,1,1,0,0,0,0,0,1,0,0,4,1,2],
         [2,0,1,1,0,1,1,1,0,0,0,0,3,3,0,0,1,0,1,1,0,1,0,0,1,0,0,0,0,2],
         [2,0,1,1,0,0,0,1,1,1,0,0,3,3,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,2],
         [2,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,1,0,0,1,1,0,0,0,0,1,2],
@@ -92,33 +93,30 @@
 
         var pc = new Sprite({ x: 45, y: 250, w: 20, h: 20, assets: assetsMng, scene: cena1, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
         var npc = new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "npc" }});
-        var portal = new Portal ({assets: assetsMng});
+        var portal = new Portal ({ assets: assetsMng });
         
         cena1.adicionar(pc);
         cena1.adicionar(npc);
-            cena1.adicionar(new Coin({x: 32*14, 
-                                     y: 32*13, assets: assetsMng, scene: cena1, map: mapa }));
-            cena1.adicionar(new Coin({x: 32*8, 
-                                     y: 32*9, assets: assetsMng, scene: cena1, map: mapa }));  
-            cena1.adicionar(new Coin({x: 32*12, 
-                                     y: 32*19, assets: assetsMng, scene: cena1, map: mapa }));    
-            cena1.adicionar(new Coin({x: 32*28, 
-                                     y: 32*3, assets: assetsMng, scene: cena1, map: mapa }));
-            cena1.adicionar(new Coin({x: 32*15, 
-                                     y: 32*1, assets: assetsMng, scene: cena1, map: mapa }));
-            cena1.adicionar(new Coin({x: 32*23, 
-                                     y: 32*15, assets: assetsMng, scene: cena1, map: mapa }));
-            cena1.adicionar(new Coin({x: 32*28, 
-                                     y: 32*11, assets: assetsMng, scene: cena1, map: mapa }));
+            cena1.adicionar(new Coin({x: 32*14.5, 
+                                     y: 32*13.4, assets: assetsMng, scene: cena1, map: mapa }));
+            cena1.adicionar(new Coin({x: 32*2.5, 
+                                     y: 32*2.6, assets: assetsMng, scene: cena1, map: mapa }));  
+            cena1.adicionar(new Coin({x: 32*12.5, 
+                                     y: 32*19.5, assets: assetsMng, scene: cena1, map: mapa }));    
+            cena1.adicionar(new Coin({x: 32*28.4, 
+                                     y: 32*3.6, assets: assetsMng, scene: cena1, map: mapa }));
+            cena1.adicionar(new Coin({x: 32*17.5, 
+                                     y: 32*1.6, assets: assetsMng, scene: cena1, map: mapa }));
+            cena1.adicionar(new Coin({x: 32*23.5, 
+                                     y: 32*15.5, assets: assetsMng, scene: cena1, map: mapa }));
+            cena1.adicionar(new Coin({x: 32*28.4, 
+                                     y: 32*11.6, assets: assetsMng, scene: cena1, map: mapa }));
         cena1.adicionar(portal);
-
-        //cena1.adicionar(new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "pc" }}));
-        
         
         function persegue(alvo){
             return function(){
-                this.vx =  40 * Math.sign(alvo.x - this.x);
-                this.vy =  40 * Math.sign(alvo.y - this.y);
+                this.vx =  40 * Math.sign(alvo.x - this.x-this.w/2);
+                this.vy =  40 * Math.sign(alvo.y - this.y-this.h/2);
             }
         }
 
@@ -195,11 +193,13 @@
                 pc.y = 250;
                 pc.vidas = 5;
                 pc.score = 0;
+                cena1.reseta();
                 estadoAtual = estados.start;
             } 
             else if( estadoAtual == estados.jogar){
                 estadoAtual = estados.tut;
-            } else if( estadoAtual == estados.ganhou){
+            } 
+            else if( estadoAtual == estados.ganhou){
                     npc.x =  100+300*Math.random(); 
                     npc.y = 100+300*Math.random();
                     pc.x = 45;
@@ -207,6 +207,7 @@
                     pc.vidas = 5;
                     pc.score = 0;
                     portal.x = 2000;
+                    cena1.reseta();
                     estadoAtual = estados.jogar;
             }             
         });
@@ -223,7 +224,7 @@
             if(assetsMng.progresso() === 100 && estadoAtual == estados.jogando){
                 cena1.passo(dt, ctx);
             }
-            if( pc.vidas == -100){                
+            if( pc.vidas == 0){                
                 estadoAtual = estados.perdeu;
             }
                 
@@ -252,13 +253,15 @@
         if( estadoAtual == estados.tut){
             ctx.drawImage(assetsMng.img("tut"), 0, 0, 860, 550);
         }
-        if( pc.score == 1 && estadoAtual == estados.jogando){
-            portal.x = 14*32; 
-
-            if(pc.colidiuCom( portal ) && estadoAtual == estados.jogando){
-                ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
-                }   
-            }
+        if( pc.score == 7 && estadoAtual == estados.jogando){
+            portal.x = 28.6*32; 
+        }
+        if(pc.colidiuComPortal( portal ) && estadoAtual == estados.jogando){
+            estadoAtual = estados.ganhou;
+        }   
+        if( estadoAtual == estados.ganhou){
+            ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
+        }
     }
     
         var dt, anterior = 0;

@@ -1,10 +1,11 @@
 function Scene(params) {
     var exemplo ={
         sprites: [],
+        sprites2: [],
         toRemove: [],
         ctx: null,
-        w: 300,
-        h: 300,
+        w: 850,
+        h: 550,
         assets: null,
         map: null
     }
@@ -16,6 +17,7 @@ Scene.prototype.constructor = Scene;
 
 Scene.prototype.adicionar = function(sprite){
     this.sprites.push(sprite);
+    this.sprites2.push(sprite);
     sprite.scene = this;
 };
 
@@ -41,6 +43,11 @@ Scene.prototype.comportar = function(){
     this.checaColisao(); 
 };
 
+Scene.prototype.reseta = function(){
+    for(var i = 0; i < this.sprites2.length; i++){
+        this.sprites[i] = this.sprites2[i];
+    }
+}
 
 Scene.prototype.limpar = function(){
     this.ctx.clearRect(0,0, this.w, this.h);
@@ -57,7 +64,7 @@ Scene.prototype.checaColisao = function(){
         }
     }
     for( var i=2; i<this.sprites.length; i++){
-        if( this.sprites[0].colidiuCom(this.sprites[i]) ){
+        if( this.sprites[0].colidiuComMoeda(this.sprites[i]) ){
             this.sprites[0].score = this.sprites[0].score + 1;  
             this.sprites[0].cooldown = 1;
             this.toRemove.push(this.sprites[i]);
@@ -69,7 +76,7 @@ Scene.prototype.removeSprites = function () {
     for (var i = 0; i < this.toRemove.length; i++) {
         var idx = this.sprites.indexOf(this.toRemove[i]);
         if(idx >= 0){
-            this.sprites.splice(idx,1);
+            this.sprites.splice(idx, 1);
         }
     }
     this.toRemove = [];

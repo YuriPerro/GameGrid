@@ -57,7 +57,7 @@ Enemy.prototype.desenhar = function (ctx) {
             35,
             32
         );
-    }  
+    }
     ctx.restore();
 };
 

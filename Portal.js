@@ -1,6 +1,6 @@
 function Portal(params = {}) {
     var exemplo = {
-        x: 2000,    y: 18*32,
+        x: 2000,    y: 17.8*32,
         vx: 0,  vy: 0,
         ax: 0,  ay: 0,
         w: 25,  h: 32,   
@@ -27,18 +27,19 @@ Portal.prototype.mover = function(dt){
 Portal.prototype.desenhar = function (ctx) {
 
     ctx.save();
+    ctx.translate(this.x, this.y);
         //ctx.fillStyle = this.color;
-        //ctx.fillRect(this.x, this.y, this.w, this.h);
+        //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
         ctx.drawImage(
             this.assets.img("chao"),
             64, // Corte na vertical
             96, //Corte na horizontal
             32,
             32,
-            this.x,
-            this.y,
-            32,
-            32,
+            -this.w / 2,
+            -this.h / 2,
+            this.w,
+            this.h,
         );
     ctx.restore();
 };

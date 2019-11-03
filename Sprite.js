@@ -3,7 +3,7 @@ function Sprite(params = {}) {
         x: 0,    y: 0,
         vx: 0,  vy: 0,
         ax: 0,  ay: 0,
-        w: 32,  h: 32,   
+        w: 35,  h: 35,   
         a: 0,
         va: 0,    vm: 0,
         frame: 0,
@@ -179,10 +179,29 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
 }
 
 Sprite.prototype.colidiuCom = function (alvo) {
-    if ((alvo.x + alvo.w/2 )-5  < this.x - this.w / 2) return false;
-    if ((alvo.x - alvo.w/2 )-5  > this.x + this.w / 2) return false;
-    if ((alvo.y + alvo.h/2 )-5  < this.y - this.h / 2) return false;
-    if ((alvo.y - alvo.h/2 )-5  > this.y + this.h / 2) return false;
+    if ((alvo.x + alvo.w/2 )-2  < this.x - this.w / 2) return false;
+    if ((alvo.x - alvo.w/2 )-2  > this.x + this.w / 2) return false;
+    if ((alvo.y + alvo.h/2 )-2  < this.y - this.h / 2) return false;
+    if ((alvo.y - alvo.h/2 )-2  > this.y + this.h / 2) return false;
+
+    return true;
+}
+
+Sprite.prototype.colidiuComMoeda = function (alvo) {
+    if ((alvo.x + alvo.w/2 ) < this.x - this.w / 2) return false;
+    if ((alvo.x - alvo.w/2 ) > this.x + this.w / 2) return false;
+    if ((alvo.y + alvo.h/2 ) < this.y - this.h / 2) return false;
+    if ((alvo.y - alvo.h/2 ) > this.y + this.h / 2) return false;
+
+
+    return true;
+}
+
+Sprite.prototype.colidiuComPortal = function (alvo) {
+    if ((alvo.x )  < this.x - this.w / 2) return false;
+    if ((alvo.x )  > this.x + this.w / 2) return false;
+    if ((alvo.y )  < this.y - this.h / 2) return false;
+    if ((alvo.y )  > this.y + this.h / 2) return false;
 
     return true;
 }
