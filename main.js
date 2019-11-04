@@ -241,7 +241,7 @@ var assetsMng = new AssetsManager();
         if( estadoAtual == estados.tut){
             ctx.drawImage(assetsMng.img("tut"), 0, 0, 860, 550);
         }
-        if( pc.score == 1 && estadoAtual == estados.jogando){
+        if( pc.score == 7 && estadoAtual == estados.jogando){
             portal.x = 28.6*32; 
         }
         if(pc.colidiuComPortal( portal ) && estadoAtual == estados.jogando){
