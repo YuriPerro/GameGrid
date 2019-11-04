@@ -60,6 +60,7 @@ Scene.prototype.checaColisao = function(){
         }
     if( this.sprites[0].colidiuCom(this.sprites[1]) && this.sprites[0].cooldown <= 0) {
             this.sprites[0].vidas = this.sprites[0].vidas - 1;
+            this.assets.inicia("hit", false);
             this.sprites[0].cooldown = 1;
         }
     }
@@ -67,6 +68,7 @@ Scene.prototype.checaColisao = function(){
         if( this.sprites[0].colidiuComMoeda(this.sprites[i]) ){
             this.sprites[0].score = this.sprites[0].score + 1;  
             this.sprites[0].cooldown = 1;
+            this.assets.inicia("coin", false);
             this.toRemove.push(this.sprites[i]);
         }
     }

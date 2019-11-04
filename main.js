@@ -1,21 +1,26 @@
 var assetsMng = new AssetsManager();
-        assetsMng.loadImage("player", "Assets/avatar.png");
-        assetsMng.loadImage("explosion", "Assets/explosion.png");
-        assetsMng.loadImage("chao", "Assets/chao.png");
-        assetsMng.loadImage("enemy1", "Assets/ghost1.png");
-        assetsMng.loadImage("enemy2", "Assets/ghost2.png");
-        assetsMng.loadImage("chao2", "Assets/chao2.png");
-        assetsMng.loadImage("tela", "Assets/tela.png");
-        assetsMng.loadImage("ob", "Assets/obisidian.png");
-        assetsMng.loadImage("vida", "Assets/vida.png");
-        assetsMng.loadImage("borda", "Assets/borda.png");
-        assetsMng.loadImage("Perdeu", "Assets/perdeu.png");
-        assetsMng.loadImage("Play", "Assets/Play.png");
-        assetsMng.loadImage("Start", "Assets/Start.png");
-        assetsMng.loadImage("coin", "Assets/coin.png");
-        assetsMng.loadImage("tut", "Assets/Tutorial.png");
-        assetsMng.loadImage("Venceu", "Assets/Venceu.png");
-        assetsMng.loadImage("map", "Assets/map.jpg");
+        assetsMng.loadImage("player", "Assets/img/avatar.png");
+        assetsMng.loadImage("explosion", "Assets/img/explosion.png");
+        assetsMng.loadImage("chao", "Assets/img/chao.png");
+        assetsMng.loadImage("enemy1", "Assets/img/ghost1.png");
+        assetsMng.loadImage("enemy2", "Assets/img/ghost2.png");
+        assetsMng.loadImage("chao2", "Assets/img/chao2.png");
+        assetsMng.loadImage("tela", "Assets/img/tela.png");
+        assetsMng.loadImage("ob", "Assets/img/obisidian.png");
+        assetsMng.loadImage("vida", "Assets/img/vida.png");
+        assetsMng.loadImage("borda", "Assets/img/borda.png");
+        assetsMng.loadImage("Perdeu", "Assets/img/perdeu.png");
+        assetsMng.loadImage("Play", "Assets/img/Play.png");
+        assetsMng.loadImage("Start", "Assets/img/Start.png");
+        assetsMng.loadImage("coin", "Assets/img/coin.png");
+        assetsMng.loadImage("tut", "Assets/img/Tutorial.png");
+        assetsMng.loadImage("Venceu", "Assets/img/Venceu.png");
+        assetsMng.loadImage("map", "Assets/img/map.jpg");
+        assetsMng.loadAudio("BG", "Assets/Sounds/BG.mp3");
+        assetsMng.loadAudio("coin", "Assets/Sounds/coin.mp3");
+        assetsMng.loadAudio("hit", "Assets/Sounds/Hit.mp3");
+        assetsMng.loadAudio("venceu", "Assets/Sounds/Venceu1.mp3");
+        assetsMng.loadAudio("click", "Assets/Sounds/click.mp3");
 
         
         //canvas.style.border="black 5px solid";
@@ -132,9 +137,11 @@ var assetsMng = new AssetsManager();
                     break;
                 case 13:
                     if( estadoAtual == estados.tut){
+                        assetsMng.inicia("click", false);
                         estadoAtual = estados.start;
                     }
                     else if( estadoAtual == estados.start){
+                        assetsMng.inicia("click", false);
                         estadoAtual = estados.jogando
                     }  
                     break;
@@ -162,6 +169,8 @@ var assetsMng = new AssetsManager();
 
         addEventListener("mousedown", function (e){
             if( estadoAtual == estados.perdeu){
+                assetsMng.inicia("click", false);
+                assetsMng.para("venceu");
                 npc.x =  100+300*Math.random(); 
                 npc.y = 100+300*Math.random();
                 pc.x = 45;
@@ -172,9 +181,11 @@ var assetsMng = new AssetsManager();
                 estadoAtual = estados.start;
             } 
             else if( estadoAtual == estados.jogar){
+                assetsMng.inicia("click", false);
                 estadoAtual = estados.tut;
             } 
             else if( estadoAtual == estados.ganhou){
+                    assetsMng.inicia("click", false);
                     npc.x =  100+300*Math.random(); 
                     npc.y = 100+300*Math.random();
                     pc.x = 45;
@@ -208,6 +219,7 @@ var assetsMng = new AssetsManager();
                 requestAnimationFrame(passo);
                 ctx.restore();
         if(estadoAtual == estados.jogando){
+                assetsMng.inicia("BG", true);
                 ctx.fillStyle = "WHITE";
                 ctx.font = "35px bold optima";
                 ctx.fillText(pc.score, 431, 44);
@@ -220,6 +232,7 @@ var assetsMng = new AssetsManager();
             ctx.drawImage(assetsMng.img("Play"), 0, 0, 860, 550);
         } 
         if( estadoAtual == estados.perdeu){
+            assetsMng.para("BG");
             ctx.drawImage(assetsMng.img("Perdeu"), 0, 0, 860, 550);
         }
         if( estadoAtual == estados.start){
@@ -228,13 +241,15 @@ var assetsMng = new AssetsManager();
         if( estadoAtual == estados.tut){
             ctx.drawImage(assetsMng.img("tut"), 0, 0, 860, 550);
         }
-        if( pc.score == 7 && estadoAtual == estados.jogando){
+        if( pc.score == 1 && estadoAtual == estados.jogando){
             portal.x = 28.6*32; 
         }
         if(pc.colidiuComPortal( portal ) && estadoAtual == estados.jogando){
             estadoAtual = estados.ganhou;
         }   
         if( estadoAtual == estados.ganhou){
+            assetsMng.para("BG");
+            assetsMng.inicia("venceu", false);
             ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
         }
     }
