@@ -28,6 +28,8 @@ Enemy.prototype.mover = function(dt){
     this.vx = this.vm * Math.cos(this.a);
     this.vy = this.vm * Math.sin(this.a);
 
+    this.frame += 12*dt;
+
     //this.aplicaRestricoes(dt);
 
 }
@@ -43,10 +45,10 @@ Enemy.prototype.desenhar = function (ctx) {
     if(this.pc.x < this.x){
         ctx.drawImage(
             this.assets.img("fantasma1"),       //ESQUERDA
-            (F%6)*49,
+            (F%3)*49,
             49,
-            49,
-            49,
+            48,
+            48,
             this.x,
             this.y,
             this.w,
@@ -56,10 +58,10 @@ Enemy.prototype.desenhar = function (ctx) {
     else if(this.pc.x >= this.x + this.w -10){             //DIREITA
         ctx.drawImage(
             this.assets.img("fantasma1"),
-            (F%6)*49,
+            (F%3)*49,
             98,
-            49,
-            49,
+            48,
+            48,
             this.x,
             this.y,
             this.w,
@@ -69,10 +71,10 @@ Enemy.prototype.desenhar = function (ctx) {
     else if( this.pc.y + this.pc.h >= this.y ){     //BAIXO
         ctx.drawImage(
             this.assets.img("fantasma1"),
-            (F%6)*49,
+            (F%3)*49,
             0,
-            49,
-            49,
+            48,
+            48,
             this.x,
             this.y,
             this.w,
@@ -82,10 +84,10 @@ Enemy.prototype.desenhar = function (ctx) {
     else if( this.pc.y + this.pc.h <= this.y){      //CIMA 
         ctx.drawImage(
             this.assets.img("fantasma1"),
-            (F%6)*49,
+            (F%3)*49,
             147,
-            49,
             48,
+            46,
             this.x,
             this.y,
             this.w,

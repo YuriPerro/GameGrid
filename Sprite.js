@@ -36,7 +36,9 @@ Sprite.prototype.desenhar = function (ctx) {
     //ctx.fillStyle = this.color;
     //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
     
-    ctx.drawImage(this.assets.img("tela"), -400, -265, 800, 530);
+    
+        ctx.drawImage(this.assets.img("tela"), -400, -265, 800, 530);
+
     for( var i=0; i<this.vidas; i++){
         ctx.drawImage(this.assets.img("vida"), -this.w/2-50+(i*20), -this.h/2+170, 20, 15);
     }
