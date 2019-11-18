@@ -15,7 +15,7 @@ function Sprite(params = {}) {
         scene: null,
         mapa: null,
         assets: null,
-        vidas: 5,
+        vidas: 100,
         score: 0,
     }
     Object.assign(this, exemplo, params);
@@ -179,10 +179,10 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
 }
 
 Sprite.prototype.colidiuCom = function (alvo) {
-    if ((alvo.x + alvo.w/2 )-2  < this.x - this.w / 2) return false;
-    if ((alvo.x - alvo.w/2 )-2  > this.x + this.w / 2) return false;
-    if ((alvo.y + alvo.h/2 )-2  < this.y - this.h / 2) return false;
-    if ((alvo.y - alvo.h/2 )-2  > this.y + this.h / 2) return false;
+    if ((alvo.x + alvo.w/2 )  < this.x - this.w / 2) return false;
+    if ((alvo.x - alvo.w/2 )  > this.x + this.w / 2) return false;
+    if ((alvo.y + alvo.h/2 )  < this.y - this.h / 2) return false;
+    if ((alvo.y - alvo.h/2 )  > this.y + this.h / 2) return false;
 
     return true;
 }

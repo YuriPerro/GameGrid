@@ -16,6 +16,9 @@ var assetsMng = new AssetsManager();
         assetsMng.loadImage("tut", "Assets/img/Tutorial.png");
         assetsMng.loadImage("Venceu", "Assets/img/Venceu.png");
         assetsMng.loadImage("map", "Assets/img/map.jpg");
+        assetsMng.loadImage("fantasma1", "Assets/img/fantasma.png");
+
+
         assetsMng.loadAudio("BG", "Assets/Sounds/BG.mp3");
         assetsMng.loadAudio("coin", "Assets/Sounds/coin.mp3");
         assetsMng.loadAudio("hit", "Assets/Sounds/Hit.mp3");

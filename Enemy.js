@@ -42,22 +42,57 @@ Enemy.prototype.desenhar = function (ctx) {
        
     if(this.pc.x < this.x){
         ctx.drawImage(
-            this.assets.img("enemy2"),
+            this.assets.img("fantasma1"),       //ESQUERDA
+            (F%6)*49,
+            49,
+            49,
+            49,
             this.x,
             this.y,
-            35,
-            32
+            this.w,
+            this.h
         );
     }
-    else if(this.pc.x >= this.x + this.w ){
+    else if(this.pc.x >= this.x + this.w -10){             //DIREITA
         ctx.drawImage(
-            this.assets.img("enemy1"),
+            this.assets.img("fantasma1"),
+            (F%6)*49,
+            98,
+            49,
+            49,
             this.x,
             this.y,
-            35,
-            32
+            this.w,
+            this.h
         );
     }
+    else if( this.pc.y + this.pc.h >= this.y ){     //BAIXO
+        ctx.drawImage(
+            this.assets.img("fantasma1"),
+            (F%6)*49,
+            0,
+            49,
+            49,
+            this.x,
+            this.y,
+            this.w,
+            this.h
+        );
+    }
+    else if( this.pc.y + this.pc.h <= this.y){      //CIMA 
+        ctx.drawImage(
+            this.assets.img("fantasma1"),
+            (F%6)*49,
+            147,
+            49,
+            48,
+            this.x,
+            this.y,
+            this.w,
+            this.h
+        );
+    }
+
     ctx.restore();
 };
 
