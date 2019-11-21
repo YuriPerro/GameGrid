@@ -28,7 +28,7 @@ Sprite.prototype.mover = function (dt) {
     this.moverOrtogonal(dt);
 }
 
-Sprite.prototype.desenhar = function (ctx) {
+Sprite.prototype.desenhar = function (ctx, escolher) {
 
     ctx.save();
     var F = Math.floor(this.frame);

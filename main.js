@@ -30,6 +30,7 @@ var assetsMng = new AssetsManager();
         //canvas.style.border="black 5px solid";
         
         var estadoAtual;
+        var escolher = 0;
         var estados = {
             jogar: 1,
             jogando: 2,
@@ -49,6 +50,7 @@ var assetsMng = new AssetsManager();
 
         var mapa = new Map({COLUMNS:30, LINES:21, assets: assetsMng, m:
         [
+            [
         [2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
         [2,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,1,0,0,0,0,0,1,0,0,1,1,2],
         [2,0,0,1,1,1,0,0,0,0,0,0,3,3,3,0,1,1,1,0,0,0,0,0,1,0,0,4,1,2],
@@ -70,6 +72,32 @@ var assetsMng = new AssetsManager();
         [2,0,1,1,0,0,1,1,0,0,0,0,0,3,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,2],
         [2,0,0,0,0,1,1,0,0,0,0,1,0,3,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,2],
         [2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+        ],
+        
+            [
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+            [2,0,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,1,0,0,0,0,0,1,0,0,1,1,2],
+            [2,0,0,1,1,1,0,0,0,0,0,0,3,3,3,0,1,1,1,0,0,0,0,0,1,0,0,4,1,2],
+            [2,0,1,1,0,1,1,1,0,0,0,0,3,3,0,0,1,0,1,1,0,1,0,0,1,0,0,0,0,2],
+            [2,0,1,1,0,0,0,1,1,1,0,0,3,3,0,0,0,0,0,1,0,1,1,0,0,0,0,0,0,2],
+            [2,0,0,0,0,0,0,0,0,0,0,0,3,3,0,0,0,0,0,1,0,0,1,1,0,0,0,0,1,2],
+            [2,0,1,1,0,0,1,1,0,0,0,3,3,3,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,2],
+            [2,0,0,0,0,0,1,0,0,0,0,0,3,3,1,1,0,0,0,0,1,0,0,0,0,1,1,1,1,2],
+            [2,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,1,4,0,0,1,0,0,0,2],
+            [2,0,1,1,0,1,1,4,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,0,0,0,2],
+            [2,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,2],
+            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,2],
+            [2,0,0,0,0,0,1,1,0,0,0,0,0,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,2],
+            [2,0,0,0,0,1,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,2],
+            [2,0,0,0,0,0,1,0,0,0,5,5,0,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,0,2],
+            [2,0,1,1,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,2],
+            [2,0,1,4,0,0,0,1,1,0,3,3,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,1,2],
+            [2,0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,1,0,0,0,4,1,0,0,0,2],
+            [2,0,1,1,0,0,1,1,0,0,0,0,0,3,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,2],
+            [2,0,0,0,0,1,1,0,0,0,0,1,0,3,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,2],
+            [2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+            ]
+
         ]
         });
 
@@ -128,12 +156,18 @@ var assetsMng = new AssetsManager();
                     teclas.espaco = 1;
                     break;
                 case 37:
+                    if(escolher > 0)
+                        escolher -= 1;
+                    
                     teclas.esquerda = 1;
                     break;
                 case 38:
                     teclas.cima = 1;
                     break;
                 case 39:
+                    if(escolher < 3)
+                        escolher += 1;
+
                     teclas.direita = 1;
                     break;
                 case 40:
@@ -212,7 +246,7 @@ var assetsMng = new AssetsManager();
                 dt = (t - anterior) / 1000;
                 
             if(assetsMng.progresso() === 100 && estadoAtual == estados.jogando){
-                cena1.passo(dt, ctx);
+                cena1.passo(dt, ctx, escolher);
             }
             if( pc.vidas == 0){                
                 estadoAtual = estados.perdeu;
@@ -241,6 +275,22 @@ var assetsMng = new AssetsManager();
         }
         if( estadoAtual == estados.start){
             ctx.drawImage(assetsMng.img("Start"), 0, 0, 860, 550);
+            if( escolher == 0){
+                ctx.fillStyle = "red";
+                ctx.fillRect(200, 400, 60, 20);
+            }
+            if( escolher == 1){
+                ctx.fillStyle = "red";
+                ctx.fillRect(300, 400, 60, 20);
+            }
+            if( escolher == 2){
+                ctx.fillStyle = "red";
+                ctx.fillRect(400, 400, 60, 20);
+            }
+            if( escolher == 3){
+                ctx.fillStyle = "red";
+                ctx.fillRect(500, 400, 60, 20);
+            }
         }
         if( estadoAtual == estados.tut){
             ctx.drawImage(assetsMng.img("tut"), 0, 0, 860, 550);
@@ -252,9 +302,9 @@ var assetsMng = new AssetsManager();
             estadoAtual = estados.ganhou;
         }   
         if( estadoAtual == estados.ganhou){
-            assetsMng.para("BG");
-            assetsMng.inicia("venceu", false);
-            ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
+                assetsMng.para("BG");
+                assetsMng.inicia("venceu", false);
+                ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
         }
     }
     

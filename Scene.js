@@ -21,10 +21,10 @@ Scene.prototype.adicionar = function(sprite){
     sprite.scene = this;
 };
 
-Scene.prototype.desenhar = function(canvas){
+Scene.prototype.desenhar = function(ctx, escolher){
     //ctx = canvas;
     for(var i = 0; i<this.sprites.length; i++){
-        this.sprites[i].desenhar(this.ctx);
+        this.sprites[i].desenhar(ctx, escolher);
     }  
 };
 
@@ -88,12 +88,12 @@ Scene.prototype.desenharMapa = function (ctx) {
     this.map.desenhar(this.ctx);
 }
 
-Scene.prototype.passo = function(dt, ctx){
+Scene.prototype.passo = function(dt, ctx, escolher){
     this.limpar();
     this.desenharMapa(ctx);
     this.comportar();
     this.mover(dt);
-    this.desenhar(ctx);
+    this.desenhar(ctx, escolher);
     //this.checaColisao();
     this.removeSprites();
 }

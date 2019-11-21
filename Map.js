@@ -6,8 +6,14 @@ function Map(modelo) {
         SIZE: 32,
         assets: null,
         moeda: null,
+        K: 0,
     }
     Object.assign(this, exemplo, modelo);
+    this.criaFase();
+}
+
+Map.prototype.criaFase = function(){ 
+    this.cells.length = 0;
 
     for (var c = 0; c < this.COLUMNS; c++) {
         this.cells[c] = [];
@@ -15,13 +21,18 @@ function Map(modelo) {
             exemplo.cells[c][l] = { tipo: 0 };
         }
     }
-    if (modelo.m) {
+    if (this.m[this.K]) {
         for (var c = 0; c < this.COLUMNS; c++) {
             for (var l = 0; l < this.LINES; l++) {
-                this.cells[c][l] = { tipo: modelo.m[l][c] };
+                this.cells[c][l] = { tipo: this.m[this.K][l][c] };
+                }
             }
         }
-    }
+}
+
+Map.prototype.setFase = function(L){
+    this.K = L;
+    this.criaFase();
 }
 
 Map.prototype.desenhar = function (ctx) {
