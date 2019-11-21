@@ -17,6 +17,7 @@ var assetsMng = new AssetsManager();
         assetsMng.loadImage("Venceu", "Assets/img/Venceu.png");
         assetsMng.loadImage("map", "Assets/img/map.jpg");
         assetsMng.loadImage("fantasma1", "Assets/img/fantasma.png");
+        assetsMng.loadImage("exit", "Assets/img/exit.png");
 
 
         assetsMng.loadAudio("BG", "Assets/Sounds/BG.mp3");
@@ -66,8 +67,8 @@ var assetsMng = new AssetsManager();
         [2,0,1,1,0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,2],
         [2,0,1,4,0,0,0,1,1,0,3,3,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,1,2],
         [2,0,0,0,0,0,0,0,0,0,3,3,3,3,0,0,0,0,0,0,1,0,0,0,4,1,0,0,0,2],
-        [2,0,1,1,0,0,1,1,0,0,0,0,0,3,0,0,0,1,1,1,1,0,0,1,1,1,0,0,0,2],
-        [2,0,0,0,0,1,1,0,0,0,0,1,0,3,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
+        [2,0,1,1,0,0,1,1,0,0,0,0,0,3,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,2],
+        [2,0,0,0,0,1,1,0,0,0,0,1,0,3,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,2],
         [2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
         ]
         });
@@ -244,8 +245,8 @@ var assetsMng = new AssetsManager();
         if( estadoAtual == estados.tut){
             ctx.drawImage(assetsMng.img("tut"), 0, 0, 860, 550);
         }
-        if( pc.score == 7 && estadoAtual == estados.jogando){
-            portal.x = 28.6*32; 
+        if( pc.score == 1 && estadoAtual == estados.jogando){
+            portal.x = 18.5*32; 
         }
         if(pc.colidiuComPortal( portal ) && estadoAtual == estados.jogando){
             estadoAtual = estados.ganhou;

@@ -61,7 +61,7 @@ Enemy.prototype.desenhar = function (ctx) {
             (F%3)*49,
             98,
             48,
-            48,
+            46,
             this.x,
             this.y,
             this.w,

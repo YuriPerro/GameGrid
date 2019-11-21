@@ -1,9 +1,9 @@
 function Portal(params = {}) {
     var exemplo = {
-        x: 2000,    y: 17.8*32,
+        x: 2000,    y: 19.5*32,
         vx: 0,  vy: 0,
         ax: 0,  ay: 0,
-        w: 25,  h: 32,   
+        w: 32,  h: 32,   
         a: 0,
         va: 0,    vm: 0,
         frame: 0,
@@ -40,6 +40,17 @@ Portal.prototype.desenhar = function (ctx) {
             -this.h / 2,
             this.w,
             this.h,
+        );
+        ctx.drawImage(
+            this.assets.img("exit"),
+            0, // Corte na vertical
+            0, //Corte na horizontal
+            600,
+            300,
+            (-this.w / 2) - 40,
+            (-this.h / 2) + 16,
+            32,
+            16,
         );
     ctx.restore();
 };
