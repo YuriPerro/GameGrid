@@ -1,11 +1,11 @@
 function Sprite(params = {}) {
     var exemplo = {
-        x: 0,    y: 0,
-        vx: 0,  vy: 0,
-        ax: 0,  ay: 0,
-        w: 35,  h: 35,   
+        x: 0, y: 0,
+        vx: 0, vy: 0,
+        ax: 0, ay: 0,
+        w: 70, h: 70,
         a: 0,
-        va: 0,    vm: 0,
+        va: 0, vm: 0,
         frame: 0,
         props: {},
         cooldown: 0,
@@ -17,6 +17,9 @@ function Sprite(params = {}) {
         assets: null,
         vidas: 100,
         score: 0,
+        escolher: 200,
+        corteX: 0, cDireita: 0, cEsquerda: 0,
+        cCima: 0, cBaixo: 0, cParadoY: 0, cParadoX: 0,
     }
     Object.assign(this, exemplo, params);
 }
@@ -24,93 +27,149 @@ Sprite.prototype = new Sprite();
 Sprite.prototype.constructor = Sprite;
 
 Sprite.prototype.mover = function (dt) {
-    this.frame += 12*dt;
+    this.frame += 12 * dt;
     this.moverOrtogonal(dt);
 }
 
-Sprite.prototype.desenhar = function (ctx, escolher) {
+Sprite.prototype.setPersonagem = function () {
+    switch (this.escolher) {
+        case 200: {
+            this.cDireita = 210;
+            this.cEsquerda = 176;
+            this.cCima = 244;
+            this.cBaixo = 142;
+            this.cParadoX = 142;
+            this.cParadoY = 32;
+            break;
+        }
+        case 300: {
+            this.cDireita = 75;
+            this.cEsquerda = 42;
+            this.cCima = 108;
+            this.cBaixo = 6;
+            this.cParadoX = 6;
+            this.cParadoY = 128;
+            this.corteX = 97;
+            break;
+        }
+        case 400: {
+            this.cDireita = 210;
+            this.cEsquerda = 176;
+            this.cCima = 244;
+            this.cBaixo = 142;
+            this.cParadoX = 142;
+            this.cParadoY = 223;
+            this.corteX = 188;
+            break;
+        }
+        case 500: {
+            this.cDireita = 210;
+            this.cEsquerda = 176;
+            this.cCima = 244;
+            this.cBaixo = 142;
+            this.cParadoX = 142;
+            this.cParadoY = 320;
+            this.corteX = 287;
+            break;
+        }
+        case 600: {
+            this.cDireita = 75;
+            this.cEsquerda = 42;
+            this.cCima = 108;
+            this.cBaixo = 6;
+            this.cParadoX = 6;
+            this.cParadoY = 222;
+            this.corteX = 190;
+            break;
+        }
+    }
+}
+
+Sprite.prototype.desenhar = function (ctx) {
 
     ctx.save();
     var F = Math.floor(this.frame);
     ctx.translate(this.x, this.y);
     //ctx.fillStyle = this.color;
     //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
-    
-    
-        ctx.drawImage(this.assets.img("tela"), -400, -265, 800, 530);
 
-    for( var i=0; i<this.vidas; i++){
+    ctx.drawImage(this.assets.img("tela"), -400, -265, 800, 530);
+
+    /*for( var i=0; i<this.vidas; i++){
         ctx.drawImage(this.assets.img("vida"), -this.w/2-50+(i*20), -this.h/2+170, 20, 15);
+    }*/
+    for (var i = 0; i < this.vidas; i++) {
+        ctx.drawImage(this.assets.img("vida"), 600 + (i * 20), 300, 20, 15);
     }
-    
 
-    if(this.movimento.direita){
+
+    if (this.movimento.direita) {
         ctx.drawImage(
-            this.assets.img("player"),
-            (F%4)*47,
-            63,
-            47,
-            66,
+            this.assets.img("player2"),
+            (F % 3) * 32 + this.corteX,
+            this.cDireita,
+            32,
+            32,
             -this.w / 2,
-            -this.h/2,
+            -this.h / 2,
             this.w,
             this.h
         );
     }
-    else if(this.movimento.esquerda){
+    else if (this.movimento.esquerda) {
         ctx.drawImage(
-            this.assets.img("player"),
-            (F%4)*47,
-            129,
-            47,
-            67,
+            this.assets.img("player2"),
+            (F % 3) * 32 + this.corteX,
+            this.cEsquerda,
+            32,
+            32,
             -this.w / 2,
-            -this.h/2,
+            -this.h / 2,
             this.w,
             this.h
         );
-    }     
-    else if(this.movimento.cima){
+    }
+    else if (this.movimento.cima) {
         ctx.drawImage(
-            this.assets.img("player"),
-            (F%4)*49,
-            197,
-            49,
-            62,
+            this.assets.img("player2"),
+            (F % 3) * 32 + this.corteX,
+            this.cCima,
+            32,
+            32,
             -this.w / 2,
-            -this.h/2,
+            -this.h / 2,
             this.w,
             this.h
         );
-    }     
-    else if(this.movimento.baixo){
+    }
+    else if (this.movimento.baixo) {
         ctx.drawImage(
-            this.assets.img("player"),
-            (F%4)*50,
-            0,
-            50,
-            59,
+            this.assets.img("player2"),
+            (F % 3) * 32 + this.corteX,
+            this.cBaixo,
+            32,
+            32,
             -this.w / 2,
-            -this.h/2,
+            -this.h / 2,
             this.w,
             this.h
         );
     } else {
         ctx.drawImage(
-            this.assets.img("player"),
-            47,
-            0,
-            50,
-            59,
+            this.assets.img("player2"),
+            this.cParadoY,
+            this.cParadoX,
+            32,
+            32,
             -this.w / 2,
-            -this.h/2,
+            -this.h / 2,
             this.w,
             this.h
-    )};      
-    
+        )
+    };
+
     ctx.restore();
 };
-
 
 Sprite.prototype.moverCircular = function (dt) {
     this.a = this.a + this.va * dt;
@@ -145,7 +204,7 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
     dnx = dx;
     dy = this.vy * dt;
     dny = dy;
-    
+
     if (dx > 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 0 && this.scene.map.cells[this.mc + 1][this.ml].tipo != 5) {
         dnx = this.scene.map.SIZE * (this.mc + 1) - (this.x + this.w / 2);
         dx = Math.min(dnx, dx);
@@ -177,33 +236,31 @@ Sprite.prototype.aplicaRestricoes = function (dt) {
     }
     if (this.x - this.w / 2 < 0) this.x = 0 + this.w / 2;
     if (this.y - this.h / 2 < 0) this.y = 0 + this.h / 2;
-
 }
 
 Sprite.prototype.colidiuCom = function (alvo) {
-    if ((alvo.x + alvo.w/2 )  < this.x - this.w / 2) return false;
-    if ((alvo.x - alvo.w/2 )  > this.x + this.w / 2) return false;
-    if ((alvo.y + alvo.h/2 )  < this.y - this.h / 2) return false;
-    if ((alvo.y - alvo.h/2 )  > this.y + this.h / 2) return false;
+    if ((alvo.x + alvo.w / 2) < this.x - this.w / 2) return false;
+    if ((alvo.x - alvo.w / 2) > this.x + this.w / 2) return false;
+    if ((alvo.y + alvo.h / 2) < this.y - this.h / 2) return false;
+    if ((alvo.y - alvo.h / 2) > this.y + this.h / 2) return false;
 
     return true;
 }
 
 Sprite.prototype.colidiuComMoeda = function (alvo) {
-    if ((alvo.x + alvo.w/2 ) < this.x - this.w / 2) return false;
-    if ((alvo.x - alvo.w/2 ) > this.x + this.w / 2) return false;
-    if ((alvo.y + alvo.h/2 ) < this.y - this.h / 2) return false;
-    if ((alvo.y - alvo.h/2 ) > this.y + this.h / 2) return false;
-
+    if ((alvo.x + alvo.w / 2) < this.x - this.w / 2) return false;
+    if ((alvo.x - alvo.w / 2) > this.x + this.w / 2) return false;
+    if ((alvo.y + alvo.h / 2) < this.y - this.h / 2) return false;
+    if ((alvo.y - alvo.h / 2) > this.y + this.h / 2) return false;
 
     return true;
 }
 
 Sprite.prototype.colidiuComPortal = function (alvo) {
-    if ((alvo.x )  < this.x - this.w / 2) return false;
-    if ((alvo.x )  > this.x + this.w / 2) return false;
-    if ((alvo.y )  < this.y - this.h / 2) return false;
-    if ((alvo.y )  > this.y + this.h / 2) return false;
+    if ((alvo.x) < this.x - this.w / 2) return false;
+    if ((alvo.x) > this.x + this.w / 2) return false;
+    if ((alvo.y) < this.y - this.h / 2) return false;
+    if ((alvo.y) > this.y + this.h / 2) return false;
 
     return true;
 }

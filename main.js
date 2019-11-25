@@ -1,5 +1,7 @@
 var assetsMng = new AssetsManager();
         assetsMng.loadImage("player", "Assets/img/avatar.png");
+        assetsMng.loadImage("player2", "Assets/img/avatar4.png");
+
         assetsMng.loadImage("explosion", "Assets/img/explosion.png");
         assetsMng.loadImage("chao", "Assets/img/chao.png");
         assetsMng.loadImage("enemy1", "Assets/img/ghost1.png");
@@ -30,7 +32,6 @@ var assetsMng = new AssetsManager();
         //canvas.style.border="black 5px solid";
         
         var estadoAtual;
-        var escolher = 0;
         var estados = {
             jogar: 1,
             jogando: 2,
@@ -103,8 +104,8 @@ var assetsMng = new AssetsManager();
 
         var cena1 = new Scene({ ctx: ctx, w: canvas.width, h: canvas.height, assets: assetsMng, map: mapa });
 
-        var pc = new Sprite({ x: 45, y: 250, w: 20, h: 20, assets: assetsMng, scene: cena1, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
-        var npc = new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 32, h:32, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "npc" }});
+        var pc = new Sprite({ x: 48, y: 624, w: 25, h: 25, assets: assetsMng, scene: cena1, comportar: porTeclasDirecionais(teclas), props: { tipo: "pc" }});
+        var npc = new Enemy({ x: 100+300*Math.random(), y:100+300*Math.random(), w: 40, h:40, a: 7, vm: 100, pc: pc, map: mapa, assets: assetsMng, comportar: persegue( pc ), props: { tipo: "npc" }});
         var portal = new Portal ({ assets: assetsMng });
         
         cena1.adicionar(pc);
@@ -150,14 +151,15 @@ var assetsMng = new AssetsManager();
                 
             }
         }
+
         addEventListener("keydown", function (e) {
             switch (e.keyCode) {
                 case 32:
                     teclas.espaco = 1;
                     break;
                 case 37:
-                    if(escolher > 0)
-                        escolher -= 1;
+                    if(pc.escolher > 200)
+                        pc.escolher -= 100;
                     
                     teclas.esquerda = 1;
                     break;
@@ -165,8 +167,8 @@ var assetsMng = new AssetsManager();
                     teclas.cima = 1;
                     break;
                 case 39:
-                    if(escolher < 3)
-                        escolher += 1;
+                    if(pc.escolher < 600)
+                    pc.escolher += 100;
 
                     teclas.direita = 1;
                     break;
@@ -180,6 +182,7 @@ var assetsMng = new AssetsManager();
                     }
                     else if( estadoAtual == estados.start){
                         assetsMng.inicia("click", false);
+                        pc.setPersonagem();
                         estadoAtual = estados.jogando
                     }  
                     break;
@@ -246,7 +249,7 @@ var assetsMng = new AssetsManager();
                 dt = (t - anterior) / 1000;
                 
             if(assetsMng.progresso() === 100 && estadoAtual == estados.jogando){
-                cena1.passo(dt, ctx, escolher);
+                cena1.passo(dt, ctx);
             }
             if( pc.vidas == 0){                
                 estadoAtual = estados.perdeu;
@@ -275,22 +278,9 @@ var assetsMng = new AssetsManager();
         }
         if( estadoAtual == estados.start){
             ctx.drawImage(assetsMng.img("Start"), 0, 0, 860, 550);
-            if( escolher == 0){
                 ctx.fillStyle = "red";
-                ctx.fillRect(200, 400, 60, 20);
-            }
-            if( escolher == 1){
-                ctx.fillStyle = "red";
-                ctx.fillRect(300, 400, 60, 20);
-            }
-            if( escolher == 2){
-                ctx.fillStyle = "red";
-                ctx.fillRect(400, 400, 60, 20);
-            }
-            if( escolher == 3){
-                ctx.fillStyle = "red";
-                ctx.fillRect(500, 400, 60, 20);
-            }
+                ctx.strokeStyle = "red";
+                ctx.strokeRect(pc.escolher, 315, 80, 90);
         }
         if( estadoAtual == estados.tut){
             ctx.drawImage(assetsMng.img("tut"), 0, 0, 860, 550);
@@ -302,9 +292,11 @@ var assetsMng = new AssetsManager();
             estadoAtual = estados.ganhou;
         }   
         if( estadoAtual == estados.ganhou){
+                mapa.setFase(1);
                 assetsMng.para("BG");
-                assetsMng.inicia("venceu", false);
-                ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
+                estadoAtual = estados.jogando;
+                //assetsMng.inicia("venceu", false);
+                //ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
         }
     }
     
