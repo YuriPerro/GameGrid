@@ -21,11 +21,18 @@ Scene.prototype.adicionar = function(sprite){
     sprite.scene = this;
 };
 
-Scene.prototype.desenhar = function(ctx, escolher){
+Scene.prototype.desenhar = function(ctx){
     //ctx = canvas;
-    for(var i = 0; i<this.sprites.length; i++){
+    for(var i = 1; i<this.sprites.length; i++){
         this.sprites[i].desenhar(ctx);
-    }  
+    }
+    ctx.drawImage(this.assets.img("tela"), this.sprites[0].x-400, this.sprites[0].y-240, 800, 530);
+    ctx.drawImage(this.assets.img("tela"), this.sprites[0].x-400, this.sprites[0].y-240, 800, 530);
+    this.sprites[0].desenhar(ctx);
+    
+    for( var i=0; i<this.sprites[0].vidas; i++){
+        ctx.drawImage(this.assets.img("vida"), (this.sprites[0].x - 70 )  + (i*20), ( this.sprites[0].y + 160), 20, 15);
+    }
 };
 
 Scene.prototype.mover = function(dt){

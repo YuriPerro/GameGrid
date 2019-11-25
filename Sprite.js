@@ -15,7 +15,7 @@ function Sprite(params = {}) {
         scene: null,
         mapa: null,
         assets: null,
-        vidas: 100,
+        vidas: 5,
         score: 0,
         escolher: 200,
         corteX: 0, cDireita: 0, cEsquerda: 0,
@@ -29,6 +29,10 @@ Sprite.prototype.constructor = Sprite;
 Sprite.prototype.mover = function (dt) {
     this.frame += 12 * dt;
     this.moverOrtogonal(dt);
+
+    if( this.vidas == 3){
+        estadoAtual = estados.perdeu;
+    }
 }
 
 Sprite.prototype.setPersonagem = function () {
@@ -93,14 +97,8 @@ Sprite.prototype.desenhar = function (ctx) {
     //ctx.fillStyle = this.color;
     //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
 
-    ctx.drawImage(this.assets.img("tela"), -400, -265, 800, 530);
+    
 
-    /*for( var i=0; i<this.vidas; i++){
-        ctx.drawImage(this.assets.img("vida"), -this.w/2-50+(i*20), -this.h/2+170, 20, 15);
-    }*/
-    for (var i = 0; i < this.vidas; i++) {
-        ctx.drawImage(this.assets.img("vida"), 600 + (i * 20), 300, 20, 15);
-    }
 
 
     if (this.movimento.direita) {

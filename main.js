@@ -28,7 +28,6 @@ var assetsMng = new AssetsManager();
         assetsMng.loadAudio("venceu", "Assets/Sounds/Venceu1.mp3");
         assetsMng.loadAudio("click", "Assets/Sounds/click.mp3");
 
-        
         //canvas.style.border="black 5px solid";
         
         var estadoAtual;
@@ -39,8 +38,9 @@ var assetsMng = new AssetsManager();
             start: 4,
             tut: 5,
             ganhou: 6,
+            nextFase: 7,
         }
-
+        var fase = 0;
         var teclas = {
             esquerda: 0,
             cima: 0,
@@ -214,8 +214,8 @@ var assetsMng = new AssetsManager();
                 assetsMng.para("venceu");
                 npc.x =  100+300*Math.random(); 
                 npc.y = 100+300*Math.random();
-                pc.x = 45;
-                pc.y = 250;
+                pc.x = 48;
+                pc.y = 624;
                 pc.vidas = 5;
                 pc.score = 0;
                 cena1.reseta();
@@ -225,7 +225,9 @@ var assetsMng = new AssetsManager();
                 assetsMng.inicia("click", false);
                 estadoAtual = estados.tut;
             } 
-            else if( estadoAtual == estados.ganhou){
+            else if( estadoAtual == estados.nextFase){
+                    assetsMng.para("BG");
+                    mapa.setFase(fase += 1);
                     assetsMng.inicia("click", false);
                     npc.x =  100+300*Math.random(); 
                     npc.y = 100+300*Math.random();
@@ -235,7 +237,7 @@ var assetsMng = new AssetsManager();
                     pc.score = 0;
                     portal.x = 2000;
                     cena1.reseta();
-                    estadoAtual = estados.jogar;
+                    estadoAtual = estados.jogando;
             }             
         });
 
@@ -251,14 +253,12 @@ var assetsMng = new AssetsManager();
             if(assetsMng.progresso() === 100 && estadoAtual == estados.jogando){
                 cena1.passo(dt, ctx);
             }
-            if( pc.vidas == 0){                
-                estadoAtual = estados.perdeu;
-            }
                 
                 anterior = t;
                 //ctx.fillText(1 / dt, 10, 20);
                 requestAnimationFrame(passo);
                 ctx.restore();
+
         if(estadoAtual == estados.jogando){
                 assetsMng.inicia("BG", true);
                 ctx.fillStyle = "WHITE";
@@ -289,14 +289,12 @@ var assetsMng = new AssetsManager();
             portal.x = 18.5*32; 
         }
         if(pc.colidiuComPortal( portal ) && estadoAtual == estados.jogando){
-            estadoAtual = estados.ganhou;
+            estadoAtual = estados.nextFase;
         }   
-        if( estadoAtual == estados.ganhou){
-                mapa.setFase(1);
+        if( estadoAtual == estados.nextFase){
                 assetsMng.para("BG");
-                estadoAtual = estados.jogando;
-                //assetsMng.inicia("venceu", false);
-                //ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
+                ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
+                assetsMng.inicia("venceu", false);
         }
     }
     
