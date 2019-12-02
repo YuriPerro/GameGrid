@@ -6,15 +6,13 @@ function Explosion(params ={}) {
         w: 64,
         h: 64,
         cooldown: 0,
-        props: {
-            tipo: "boom"
-        },
+        tipo: "boom",
     }
     Object.assign(this, exemplo, params);
 }
 
 Explosion.prototype.mover = function(dt){
-    this.frame += 15 * dt;
+    this.frame += 25 * dt;
     if(Math.floor(this.frame) > 16){
         //this.frame = 0;
         this.morto = true;
@@ -27,12 +25,13 @@ Explosion.prototype.desenhar = function(){
     ctx.translate(this.x, this.y);
     ctx.rotate(this.a + Math.PI/2);
     var F = Math.floor(this.frame); 
+
     ctx.drawImage(
-        this.scene.assets.img("explosion"),
-        (F%4)*129,
-        Math.floor(F/4)*136,
-        129,
-        136,
+        this.scene.assets.img("shield"),
+        (F%5)*190,
+        Math.floor(F/5)*190,
+        190,
+        190,
         -this.w/2,
         -this.h/2,
         this.w,

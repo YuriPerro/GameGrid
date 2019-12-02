@@ -30,7 +30,7 @@ Sprite.prototype.mover = function (dt) {
     this.frame += 12 * dt;
     this.moverOrtogonal(dt);
 
-    if( this.vidas == 3){
+    if( this.vidas == -10){
         estadoAtual = estados.perdeu;
     }
 }
@@ -44,6 +44,7 @@ Sprite.prototype.setPersonagem = function () {
             this.cBaixo = 142;
             this.cParadoX = 142;
             this.cParadoY = 32;
+            this.corteX = -1
             break;
         }
         case 300: {
@@ -53,7 +54,7 @@ Sprite.prototype.setPersonagem = function () {
             this.cBaixo = 6;
             this.cParadoX = 6;
             this.cParadoY = 128;
-            this.corteX = 97;
+            this.corteX = 95;
             break;
         }
         case 400: {
@@ -96,9 +97,6 @@ Sprite.prototype.desenhar = function (ctx) {
     ctx.translate(this.x, this.y);
     //ctx.fillStyle = this.color;
     //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
-
-    
-
 
 
     if (this.movimento.direita) {

@@ -26,9 +26,8 @@ Scene.prototype.desenhar = function(ctx){
     for(var i = 1; i<this.sprites.length; i++){
         this.sprites[i].desenhar(ctx);
     }
-    ctx.drawImage(this.assets.img("tela"), this.sprites[0].x-400, this.sprites[0].y-240, 800, 530);
-    ctx.drawImage(this.assets.img("tela"), this.sprites[0].x-400, this.sprites[0].y-240, 800, 530);
     this.sprites[0].desenhar(ctx);
+    ctx.drawImage(this.assets.img("tela"), this.sprites[0].x-400, this.sprites[0].y-240, 800, 530);
     
     for( var i=0; i<this.sprites[0].vidas; i++){
         ctx.drawImage(this.assets.img("vida"), (this.sprites[0].x - 70 )  + (i*20), ( this.sprites[0].y + 160), 20, 15);
@@ -72,7 +71,7 @@ Scene.prototype.checaColisao = function(){
         }
     }
     for( var i=2; i<this.sprites.length; i++){
-        if( this.sprites[0].colidiuComMoeda(this.sprites[i]) ){
+        if( this.sprites[i].tipo == "moeda" && this.sprites[0].colidiuComMoeda(this.sprites[i]) ){
             this.sprites[0].score = this.sprites[0].score + 1;  
             this.sprites[0].cooldown = 1;
             this.assets.inicia("coin", false);

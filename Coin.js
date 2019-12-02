@@ -15,6 +15,7 @@ function Coin(params = {}) {
         scene: null,
         mapa: null,
         assets: null,
+        tipo: "moeda",
     }
     Object.assign(this, exemplo, params);
 }
@@ -35,6 +36,7 @@ Coin.prototype.desenhar = function (ctx) {
         ctx.translate(this.x, this.y);
         //ctx.fillStyle = this.color;
         //ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+        
         ctx.drawImage(
             this.scene.assets.img("coin"),
             (F%9)*109,
@@ -46,5 +48,7 @@ Coin.prototype.desenhar = function (ctx) {
             this.w,
             this.h 
         );
+    
+
     ctx.restore();
 };
