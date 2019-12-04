@@ -45,8 +45,8 @@ Map.prototype.desenhar = function (ctx) {
                 this.assets.img("chao"),
                 160, // Corte na vertical
                 32, //Corte na horizontal
-                32,
-                32,
+                30,
+                30,
                 c*this.SIZE,
                 l*this.SIZE,
                 32,
@@ -64,7 +64,7 @@ Map.prototype.desenhar = function (ctx) {
                     32,
                     32,
                 )};
-            if(this.cells[c][l].tipo == 1 && K == 0){
+            if(this.cells[c][l].tipo == 1 && this.K == 0 ){
                 ctx.drawImage(
                     this.assets.img("ob"),
                     0, // Corte na vertical
@@ -77,7 +77,7 @@ Map.prototype.desenhar = function (ctx) {
                     32,
                 );
             } 
-            if(this.cells[c][l].tipo == 1 && K == 1){
+            if(this.cells[c][l].tipo == 1 && this.K == 1){
                 ctx.drawImage(
                     this.assets.img("ob"),
                     0, // Corte na vertical
