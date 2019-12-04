@@ -6,7 +6,7 @@ function Map(modelo) {
         SIZE: 32,
         assets: null,
         moeda: null,
-        K: 1,
+        K: 0,
     }
     Object.assign(this, exemplo, modelo);
     this.criaFase();

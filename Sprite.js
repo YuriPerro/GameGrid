@@ -30,7 +30,7 @@ Sprite.prototype.mover = function (dt) {
     this.frame += 12 * dt;
     this.moverOrtogonal(dt);
 
-    if( this.vidas == -10){
+    if( this.vidas == 0){
         estadoAtual = estados.perdeu;
     }
 }
