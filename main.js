@@ -15,12 +15,14 @@ var assetsMng = new AssetsManager();
         assetsMng.loadImage("Play", "Assets/img/Play.png");
         assetsMng.loadImage("Start", "Assets/img/Start.png");
         assetsMng.loadImage("coin", "Assets/img/coin.png");
+        assetsMng.loadImage("coin2", "Assets/img/coin2.png");
         assetsMng.loadImage("tut", "Assets/img/Tutorial.png");
         assetsMng.loadImage("Venceu", "Assets/img/Venceu.png");
         assetsMng.loadImage("map", "Assets/img/map.jpg");
         assetsMng.loadImage("fantasma1", "Assets/img/fantasma.png");
         assetsMng.loadImage("exit", "Assets/img/exit.png");
         assetsMng.loadImage("shield", "Assets/img/shield.png");
+        assetsMng.loadImage("fase2", "Assets/img/fase2.png");
 
 
         assetsMng.loadAudio("BG", "Assets/Sounds/BG.mp3");
@@ -74,30 +76,30 @@ var assetsMng = new AssetsManager();
         [2,0,1,1,0,0,1,1,0,0,0,0,0,3,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,2],
         [2,0,0,0,0,1,1,0,0,0,0,1,0,3,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,2],
         [2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
-        ],
+            ],
         
             [
             [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,6],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,6,6,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,6,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,6,6,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,0,0,0,0,0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,6,6,6,6,6,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-            [2,0,0,0,0,6,6,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2],
-            [2,2,2,2,2,6,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+            [2,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1,0,1,2],
+            [2,0,0,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,0,0,1,2],
+            [2,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,1,1,2],
+            [2,1,1,1,1,1,0,1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,1,6,6,6],
+            [2,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,1,1,1,0,1,1,1,1,1,1,6,6,6,6],
+            [2,1,1,0,0,0,0,1,1,1,1,1,0,1,1,0,1,1,1,0,0,1,6,6,6,6,6,6,6,6],
+            [2,1,1,0,0,1,1,1,1,0,0,0,0,1,1,0,1,1,1,1,1,1,6,6,6,6,6,1,1,2],
+            [2,1,1,0,1,1,1,1,1,0,1,1,0,0,1,0,1,6,6,6,6,6,6,6,6,1,1,1,1,2],
+            [2,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,6,6,6,6,6,6,1,1,1,1,1,1,2],
+            [2,0,0,0,1,1,1,1,1,0,0,0,1,0,0,0,1,1,6,1,1,1,1,1,1,1,1,1,1,2],
+            [2,0,1,1,1,1,1,1,1,1,0,0,0,0,1,0,0,5,5,5,0,0,0,1,1,0,0,0,1,2],
+            [2,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,6,1,1,0,0,1,1,0,1,1,1,2],
+            [2,0,1,1,1,1,0,1,1,1,6,6,6,6,6,6,6,6,6,1,1,0,0,0,0,0,1,1,1,2],
+            [2,0,1,1,1,1,0,1,1,1,6,6,6,6,6,6,6,6,6,1,1,1,0,0,1,1,1,1,1,2],
+            [2,0,1,0,0,0,0,1,1,1,6,6,1,1,1,1,1,1,1,1,1,0,0,0,1,1,0,0,1,2],
+            [2,0,1,0,1,0,1,1,6,6,6,6,1,1,1,1,1,0,0,0,0,0,1,1,1,0,0,0,1,2],
+            [2,0,1,0,1,0,1,6,6,6,6,6,1,1,0,0,0,0,1,1,1,1,1,1,0,0,0,1,1,2],
+            [2,0,1,0,1,0,1,6,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,2],
+            [2,0,0,0,0,0,1,6,1,1,0,0,0,0,0,1,0,0,0,0,0,1,1,1,1,1,1,0,1,2],
+            [2,2,2,2,2,2,2,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
             ]
 
         ]
@@ -111,20 +113,41 @@ var assetsMng = new AssetsManager();
         
         cena1.adicionar(pc);
         cena1.adicionar(npc);
+
+        function insereCoin2(){
             cena1.adicionar(new Coin({x: 32*14.5, 
-                                     y: 32*13.4, assets: assetsMng, scene: cena1, map: mapa }));
+                                     y: 32*13.4, assets: assetsMng, scene: cena1, mapa: mapa }));
             cena1.adicionar(new Coin({x: 32*2.5, 
-                                     y: 32*2.6, assets: assetsMng, scene: cena1, map: mapa }));  
+                                     y: 32*2.6, assets: assetsMng, scene: cena1, mapa: mapa }));  
             cena1.adicionar(new Coin({x: 32*12.5, 
-                                     y: 32*19.5, assets: assetsMng, scene: cena1, map: mapa }));    
+                                     y: 32*19.5, assets: assetsMng, scene: cena1, mapa: mapa }));    
             cena1.adicionar(new Coin({x: 32*28.4, 
-                                     y: 32*3.6, assets: assetsMng, scene: cena1, map: mapa }));
+                                     y: 32*3.6, assets: assetsMng, scene: cena1, mapa: mapa }));
             cena1.adicionar(new Coin({x: 32*17.5, 
-                                     y: 32*1.6, assets: assetsMng, scene: cena1, map: mapa }));
+                                     y: 32*1.6, assets: assetsMng, scene: cena1, mapa: mapa }));
             cena1.adicionar(new Coin({x: 32*23.5, 
-                                     y: 32*15.5, assets: assetsMng, scene: cena1, map: mapa }));
+                                     y: 32*15.5, assets: assetsMng, scene: cena1, mapa: mapa }));
             cena1.adicionar(new Coin({x: 32*28.4, 
-                                     y: 32*11.6, assets: assetsMng, scene: cena1, map: mapa }));
+                                     y: 32*11.6, assets: assetsMng, scene: cena1, mapa: mapa }));
+        }
+        
+        function insereCoin(){
+            console.log("INSERIU !!!!!!!!!!!!!!!!");
+            cena1.adicionar(new Coin({x: 32*9.5, 
+                                     y: 32*10.5, assets: assetsMng, scene: cena1, mapa: mapa }));
+            cena1.adicionar(new Coin({x: 32*4.5, 
+                                     y: 32*7.4, assets: assetsMng, scene: cena1, mapa: mapa }));  
+            cena1.adicionar(new Coin({x: 32*5.5, 
+                                     y: 32*19.5, assets: assetsMng, scene: cena1, mapa: mapa }));    
+            cena1.adicionar(new Coin({x: 32*27.5, 
+                                     y: 32*1.6, assets: assetsMng, scene: cena1, mapa: mapa }));
+            cena1.adicionar(new Coin({x: 32*18.5, 
+                                     y: 32*11.5, assets: assetsMng, scene: cena1, mapa: mapa }));
+            cena1.adicionar(new Coin({x: 32*10.5, 
+                                     y: 32*19.5, assets: assetsMng, scene: cena1, mapa: mapa }));
+            cena1.adicionar(new Coin({x: 32*27.5, 
+                                     y: 32*11.5, assets: assetsMng, scene: cena1, mapa: mapa }));
+        }
         cena1.adicionar(portal);
         
         function persegue(alvo){
@@ -136,20 +159,13 @@ var assetsMng = new AssetsManager();
 
         function porTeclasDirecionais(teclas) {
             return function () {
-                if (teclas.esquerda) { this.vx = -90; }
-                if (teclas.direita) { this.vx = +90; }
+                if (teclas.esquerda) { this.vx = - 100; }
+                if (teclas.direita) { this.vx =  100; }
                 if (teclas.esquerda === teclas.direita) { this.vx = 0; }
 
-                if (teclas.cima) { this.vy = -90; }
-                if (teclas.baixo) { this.vy = 90; }
+                if (teclas.cima) { this.vy = -100; }
+                if (teclas.baixo) { this.vy = 100; }
                 if (teclas.cima === teclas.baixo) { this.vy = 0; }
-
-                if (teclas.espaco && this.cooldown <= 0){
-                    var explosion = new Explosion({x: this.x-5, y: this.y+5 });
-                    this.scene.adicionar(explosion);
-                    this.cooldown = 1;
-                }
-                
             }
         }
 
@@ -185,8 +201,25 @@ var assetsMng = new AssetsManager();
                     else if( estadoAtual == estados.start){
                         assetsMng.inicia("click", false);
                         pc.setPersonagem();
+                        if( this.fase == 0){
+                            this.insereCoin2();
+                        }
                         estadoAtual = estados.jogando
-                    }  
+                    }
+                    else if( estadoAtual == estados.nextFase){
+                        assetsMng.para("BG");
+                        mapa.setFase(fase += 1);
+                        assetsMng.inicia("click", false);
+                        npc.x =  100+300*Math.random(); 
+                        npc.y = 100+300*Math.random();
+                        pc.x = 48;
+                        pc.y = 48;
+                        pc.vidas = 5;
+                        pc.score = 0;
+                        portal.x = 2000;
+                        this.insereCoin();
+                        estadoAtual = estados.jogando;
+                    }            
                     break;
             }
         });
@@ -226,21 +259,20 @@ var assetsMng = new AssetsManager();
             else if( estadoAtual == estados.jogar){
                 assetsMng.inicia("click", false);
                 estadoAtual = estados.tut;
+            }
+            else if( estadoAtual == estados.ganhou){
+                assetsMng.inicia("click", false);
+                assetsMng.para("venceu");
+                npc.x =  100+300*Math.random(); 
+                npc.y = 100+300*Math.random();
+                pc.x = 48;
+                pc.y = 624;
+                pc.vidas = 5;
+                pc.score = 0;
+                this.fase = 0;
+                mapa.setFase(fase);
+                estadoAtual = estados.jogar;        
             } 
-            else if( estadoAtual == estados.nextFase){
-                    assetsMng.para("BG");
-                    mapa.setFase(fase += 1);
-                    assetsMng.inicia("click", false);
-                    npc.x =  100+300*Math.random(); 
-                    npc.y = 100+300*Math.random();
-                    pc.x = 45;
-                    pc.y = 250;
-                    pc.vidas = 5;
-                    pc.score = 0;
-                    portal.x = 2000;
-                    cena1.reseta();
-                    estadoAtual = estados.jogando;
-            }             
         });
 
         function passo(t) {
@@ -261,8 +293,8 @@ var assetsMng = new AssetsManager();
                 requestAnimationFrame(passo);
                 ctx.restore();
 
-        if(estadoAtual == estados.jogando){
-                assetsMng.inicia("BG", true);
+        if( estadoAtual == estados.jogando ){
+                //assetsMng.inicia("BG", true);
                 ctx.fillStyle = "WHITE";
                 ctx.font = "35px bold optima";
                 ctx.fillText(pc.score, 431, 44);
@@ -279,24 +311,39 @@ var assetsMng = new AssetsManager();
             ctx.drawImage(assetsMng.img("Perdeu"), 0, 0, 860, 550);
         }
         if( estadoAtual == estados.start){
-            ctx.drawImage(assetsMng.img("Start"), 0, 0, 860, 550);
+                ctx.drawImage(assetsMng.img("Start"), 0, 0, 860, 550);
                 ctx.fillStyle = "red";
-                ctx.strokeStyle = "red";
+                ctx.strokeStyle = "white";
                 ctx.strokeRect(pc.escolher, 315, 80, 90);
         }
         if( estadoAtual == estados.tut){
             ctx.drawImage(assetsMng.img("tut"), 0, 0, 860, 550);
         }
-        if( pc.score == 7 && estadoAtual == estados.jogando){
-            portal.x = 18.5*32; 
+        if( pc.score == 7 && estadoAtual == estados.jogando ){
+            if(mapa.K == 0)
+                portal.x = 18.5*32;
+            else{
+                portal.y = 32*19.5;
+                portal.x = 32*27.5; 
+            }
         }
         if(pc.colidiuComPortal( portal ) && estadoAtual == estados.jogando){
-            estadoAtual = estados.nextFase;
+            if( mapa.K == 0){
+                estadoAtual = estados.nextFase;
+            }
+            else
+            estadoAtual = estados.ganhou;
         }   
         if( estadoAtual == estados.nextFase){
+                mapa.setFase(1);
                 assetsMng.para("BG");
-                ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
-                assetsMng.inicia("venceu", false);
+                ctx.drawImage(assetsMng.img("fase2"), 0, 0, 860, 550);
+                //assetsMng.inicia("venceu", false);
+        }
+        if( estadoAtual == estados.ganhou){
+            assetsMng.para("BG");
+            ctx.drawImage(assetsMng.img("Venceu"), 0, 0, 860, 550);
+            assetsMng.inicia("venceu", false);
         }
     }
     

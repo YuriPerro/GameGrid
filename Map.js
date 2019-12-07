@@ -21,13 +21,14 @@ Map.prototype.criaFase = function(){
             exemplo.cells[c][l] = { tipo: 0 };
         }
     }
-    if (this.m[this.K]) {
+    if ( this.m[this.K] ) {
         for (var c = 0; c < this.COLUMNS; c++) {
+            this.cells[c] = [];
             for (var l = 0; l < this.LINES; l++) {
                 this.cells[c][l] = { tipo: this.m[this.K][l][c] };
                 }
             }
-        }
+    }
 }
 
 Map.prototype.setFase = function(L){
@@ -39,8 +40,8 @@ Map.prototype.desenhar = function (ctx) {
 
     for (var c = 0; c < this.COLUMNS; c++) {
         for (var l = 0; l < this.LINES; l++) {
-            
-            if( this.K == 0){
+
+            if( this.K == 0 ) {                 //FASE 1 -----------------------------------------------------------------
             ctx.drawImage(
                 this.assets.img("chao"),
                 160, // Corte na vertical
@@ -51,8 +52,76 @@ Map.prototype.desenhar = function (ctx) {
                 l*this.SIZE,
                 32,
                 32,
-            )};
-            if( this.K == 1){
+                )
+            if(this.cells[c][l].tipo == 1 ){
+                ctx.drawImage(
+                    this.assets.img("ob"),
+                    0, // Corte na vertical
+                    0, //Corte na horizontal
+                    32,
+                    32,
+                    c*this.SIZE,
+                    l*this.SIZE,
+                    32,
+                    32,
+                );
+            }
+                if(this.cells[c][l].tipo == 2 ){
+                    ctx.drawImage(
+                        this.assets.img("map"),
+                        0, // Corte na vertical
+                        527, //Corte na horizontal
+                        75,
+                        75,
+                        c*this.SIZE,
+                        l*this.SIZE,
+                        32,
+                        32,
+                    );
+                }
+                if(this.cells[c][l].tipo == 3){
+                    ctx.drawImage(
+                        this.assets.img("chao2"),
+                        297, // Corte na vertical
+                        231, //Corte na horizontal
+                        30,
+                        30,
+                        c*this.SIZE,
+                        l*this.SIZE,
+                        32,
+                        32,
+                    );
+                }
+                if(this.cells[c][l].tipo == 4){
+                    ctx.drawImage(
+                        this.assets.img("chao"),
+                        128, // Corte na vertical
+                        32, //Corte na horizontal
+                        32,
+                        32,
+                        c*this.SIZE,
+                        l*this.SIZE,
+                        32,
+                        32,
+                    );
+                }
+                if(this.cells[c][l].tipo == 5){
+                    ctx.drawImage(
+                        this.assets.img("chao2"),
+                        329, // Corte na vertical
+                        33, //Corte na horizontal
+                        32,
+                        32,
+                        c*this.SIZE,
+                        l*this.SIZE,
+                        32,
+                        32,
+                        );
+                    }
+            };
+
+
+            if( this.K == 1 ) {                 //FASE 2 -----------------------------------------------------------------
                 ctx.drawImage(
                     this.assets.img("map"),
                     301, // Corte na vertical
@@ -63,100 +132,61 @@ Map.prototype.desenhar = function (ctx) {
                     l*this.SIZE,
                     32,
                     32,
-                )};
-            if(this.cells[c][l].tipo == 1 && this.K == 0 ){
-                ctx.drawImage(
-                    this.assets.img("ob"),
-                    0, // Corte na vertical
-                    0, //Corte na horizontal
-                    32,
-                    32,
-                    c*this.SIZE,
-                    l*this.SIZE,
-                    32,
-                    32,
                 );
-            } 
-            if(this.cells[c][l].tipo == 1 && this.K == 1){
-                ctx.drawImage(
-                    this.assets.img("ob"),
-                    0, // Corte na vertical
-                    0, //Corte na horizontal
-                    32,
-                    32,
-                    c*this.SIZE,
-                    l*this.SIZE,
-                    32,
-                    32,
-                );
-            } 
-            if(this.cells[c][l].tipo == 2){
-                ctx.drawImage(
-                    this.assets.img("map"),
-                    0, // Corte na vertical
-                    527, //Corte na horizontal
-                    75,
-                    75,
-                    c*this.SIZE,
-                    l*this.SIZE,
-                    32,
-                    32,
-                );
+                if(this.cells[c][l].tipo == 1 ){
+                    ctx.drawImage(
+                        this.assets.img("chao2"),
+                        133, // Corte na vertical
+                        66, //Corte na horizontal
+                        30,
+                        32,
+                        c*this.SIZE,
+                        l*this.SIZE,
+                        32,
+                        32,
+                    );
+                }
+                if(this.cells[c][l].tipo == 2){
+                    ctx.drawImage(
+                        this.assets.img("chao2"),
+                        133, // Corte na vertical
+                        66, //Corte na horizontal
+                        30,
+                        32,
+                        c*this.SIZE,
+                        l*this.SIZE,
+                        32,
+                        32,
+                    );
+                }
+                if(this.cells[c][l].tipo == 5){
+                    ctx.drawImage(
+                        this.assets.img("chao2"),
+                        429, // Corte na vertical
+                        132, //Corte na horizontal
+                        30,
+                        32,
+                        c*this.SIZE,
+                        l*this.SIZE,
+                        32,
+                        32,
+                    );
+                    }
+                if(this.cells[c][l].tipo == 6){
+                    ctx.drawImage(
+                        this.assets.img("map"),
+                        0, // Corte na vertical
+                        303, //Corte na horizontal
+                        75,
+                        75,
+                        c*this.SIZE,
+                        l*this.SIZE,
+                        32,
+                        32,
+                        );
+                    } 
             }
-            if(this.cells[c][l].tipo == 3){
-                ctx.drawImage(
-                    this.assets.img("chao2"),
-                    297, // Corte na vertical
-                    231, //Corte na horizontal
-                    32,
-                    32,
-                    c*this.SIZE,
-                    l*this.SIZE,
-                    32,
-                    32,
-                );
-            }
-            if(this.cells[c][l].tipo == 4){
-                ctx.drawImage(
-                    this.assets.img("chao"),
-                    128, // Corte na vertical
-                    32, //Corte na horizontal
-                    32,
-                    32,
-                    c*this.SIZE,
-                    l*this.SIZE,
-                    32,
-                    32,
-                );
-            }
-            if(this.cells[c][l].tipo == 5){
-                ctx.drawImage(
-                    this.assets.img("chao2"),
-                    329, // Corte na vertical
-                    33, //Corte na horizontal
-                    32,
-                    32,
-                    c*this.SIZE,
-                    l*this.SIZE,
-                    32,
-                    32,
-                );
-            }
-            if(this.cells[c][l].tipo == 6){
-                ctx.drawImage(
-                    this.assets.img("map"),
-                    0, // Corte na vertical
-                    303, //Corte na horizontal
-                    75,
-                    75,
-                    c*this.SIZE,
-                    l*this.SIZE,
-                    32,
-                    32,
-                );
-            }
-            
+
         }
-    }
-     
+    }  
 }
