@@ -1,7 +1,7 @@
 <h1 align="center">
-    <img src="https://i.imgur.com/yixxQIp.png" />
+    <img width="600" heigth="300" src="https://i.imgur.com/yixxQIp.png" />
     <div>
-        <a href="https://pt-br.reactjs.org/">🎮 Ghost Runner </a>
+        <a href="yuriperro.github.io/ghostrunner/">🎮 Ghost Runner </a>
     </div>
 </h1>
 <p align="center">📌 Game developed for learning. Web development class at the Federal University of Juiz de Fora</p>
