@@ -5,9 +5,9 @@
 
 ## 📦 Components
 
-• HTML5
-• CSS3
-• Javascript
+* HTML5
+* CSS3
+* Javascript
 
 ---
 <p align="center">Developed with 💜 by Yuri Baumgartner</p>
